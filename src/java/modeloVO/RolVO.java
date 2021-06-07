@@ -11,21 +11,21 @@ package modeloVO;
  */
 public class RolVO {
     
-    private String rolid, roltipo;
+    
+    
+    private Integer rolid; 
+   private String roltipo;
 
-    public RolVO() {
+     public RolVO() {
     }
 
-    public RolVO(String rolid, String roltipo) {
-        this.rolid = rolid;
-        this.roltipo = roltipo;
-    }
-
-    public String getRolid() {
+    
+    
+    public Integer getRolid() {
         return rolid;
     }
 
-    public void setRolid(String rolid) {
+    public void setRolid(Integer rolid) {
         this.rolid = rolid;
     }
 
@@ -36,5 +36,10 @@ public class RolVO {
     public void setRoltipo(String roltipo) {
         this.roltipo = roltipo;
     }
+            
+  
+
+   
+   
     
 }

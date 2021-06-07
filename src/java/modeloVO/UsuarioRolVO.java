@@ -11,16 +11,18 @@ package modeloVO;
  */
 public class UsuarioRolVO {
     
-    private String usuarioid, rolid;
+    
+    private String usuarioid;
+    private String rolid;
 
-    public UsuarioRolVO() {
+    public UsuarioRolVO () {
+}
+
+    public UsuarioRolVO(int aInt, String string) {
+      //To change body of generated methods, choose Tools | Templates.
     }
-
-    public UsuarioRolVO(String usuarioid, String rolid) {
-        this.usuarioid = usuarioid;
-        this.rolid = rolid;
-    }
-
+    
+    
     public String getUsuarioid() {
         return usuarioid;
     }
@@ -36,5 +38,7 @@ public class UsuarioRolVO {
     public void setRolid(String rolid) {
         this.rolid = rolid;
     }
+
+ 
     
 }

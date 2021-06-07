@@ -32,7 +32,9 @@ public class UsuarioRolDAO extends Conexion implements Crud {
     //almacenamos las sentencias.
     public String sql;
 
-    private String usuarioid = "", rolid = "";
+    private String usuarioid ="";
+            
+       private String rolid ;
 
     public UsuarioRolDAO(UsuarioRolVO usuariorolVO) {
         super();
@@ -48,6 +50,10 @@ public class UsuarioRolDAO extends Conexion implements Crud {
 
         }
 
+    }
+
+    public UsuarioRolDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -76,6 +82,48 @@ public class UsuarioRolDAO extends Conexion implements Crud {
         return operacion;
     }
 
+    public ArrayList<UsuarioRolVO> usuYrol(){
+         UsuarioRolVO usuRolVO = null;
+        ArrayList<UsuarioRolVO> listusuYRol = new ArrayList<>();
+        
+    
+        try {
+            conexion = this.obtenerConexion();
+            sql = "select Usuarioid, Rolid  from UsuarioRol";
+            puente = conexion.prepareStatement(sql);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                usuRolVO = new UsuarioRolVO(mensajero.getInt(1), mensajero.getString(2));
+
+                listusuYRol.add(usuRolVO);
+            
+                 } 
+        }catch (Exception e) {
+                    e.printStackTrace();
+                    
+                  Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally{
+        
+            try {
+                conexion = this.cerrarConexion();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        
+        }
+        
+            
+
+            
+        
+        return listusuYRol;
+    
+    }
+    
+    
     @Override
     public boolean actualizar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

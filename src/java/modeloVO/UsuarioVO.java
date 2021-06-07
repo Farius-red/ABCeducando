@@ -10,7 +10,9 @@ package modeloVO;
  * @author Hector
  */
 public class UsuarioVO {
-    
+     private  boolean operacion = false;
+
+   
     private String usuarioId, usuarioLogin, usuarioPassword, DatosNumeroId;
 
     
@@ -27,6 +29,15 @@ public class UsuarioVO {
         this.usuarioLogin = usuarioLogin;
         this.usuarioPassword = usuarioPassword;
         this.DatosNumeroId = DatosNumeroId;
+    }
+    
+    
+     public boolean isOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(boolean operacion) {
+        this.operacion = operacion;
     }
 
     public String getUsuarioId() {

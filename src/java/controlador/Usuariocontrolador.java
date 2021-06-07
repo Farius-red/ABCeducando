@@ -7,12 +7,15 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modeloDAO.UsuarioDAO;
+import modeloDAO.UsuarioRolDAO;
+import modeloVO.UsuarioRolVO;
 import modeloVO.UsuarioVO;
 
 /**
@@ -46,14 +49,39 @@ public class Usuariocontrolador extends HttpServlet {
 
         //Llamar al DAO y mandarlo los datos del VO
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
-
+         
+        UsuarioRolVO usuYrolVO = new UsuarioRolVO();
+              
+        UsuarioRolDAO usuRolDAO = new UsuarioRolDAO();
+                
+        ArrayList<UsuarioRolVO> usuidR = usuRolDAO.usuYrol();
+        
+      
+        
         switch (opcion) {
 
             case 1://Iniciar Sesion
 
                 if (usuDAO.iniciarSesion(usuarioLogin, usuarioPassword)) {
-                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
-                } else {
+                    
+                   if()
+        } 
+                   
+                   switch(listUR){
+                case usuRolDAO.get(0):
+                      request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                    
+                break;
+         }
+     }  
+           
+                   
+                    
+                  
+                    
+            else {
+                    
+                    
                     request.setAttribute("mensajeError", "Datos incorrectos");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }

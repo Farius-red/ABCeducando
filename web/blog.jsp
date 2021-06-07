@@ -79,7 +79,7 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav> 
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="class.jsp">Home</a></li>
                                             <li><a href="class.html">Class</a></li>
                                             <li><a href="about.html">About</a></li>
                                             <li><a href="blog.html">Blog</a>

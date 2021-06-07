@@ -28,8 +28,8 @@ public class UsuarioDAO extends Conexion implements Crud {
     private PreparedStatement puente;
     private ResultSet mensajero;
 
-    //almacenamos el resultado de la operacion.
-    public boolean operacion = false;
+    
+   
     //almacenamos las sentencias.
     public String sql;
 
@@ -50,9 +50,10 @@ public class UsuarioDAO extends Conexion implements Crud {
 
     }
     
-    
-    public boolean iniciarSesion(String usuario, String clave) {
-
+    // este metodo solicita dos parametros y retorna un objeto que contine los datos de la sesion
+    public UsuarioVO iniciarSesion(String usuario, String clave) {
+        
+       UsuarioVO usuvo =  new UsuarioVO();
         try {
             conexion = this.obtenerConexion();
             sql = "select * from usuario where usuarioLogin = ? "
@@ -60,10 +61,23 @@ public class UsuarioDAO extends Conexion implements Crud {
             puente = conexion.prepareStatement(sql);
             puente.setString(1, usuario);
             puente.setString(2, clave);
+           
             mensajero = puente.executeQuery();
 
             if (mensajero.next()) {
-                operacion = true;
+                
+                // setea el valor operacion 
+                usuvo.setOperacion(true);
+                // aqui captura los datos de el id del usuario en la varibale trns
+                int trns = mensajero.getInt(1);
+                
+                // aqui trasnforma esos datos a un string
+                String idu = Integer.toString(trns);
+                //los setea en el objeto
+                usuvo.setUsuarioId(idu);
+                
+                
+                
             }
 
         } catch (Exception e) {
@@ -75,7 +89,9 @@ public class UsuarioDAO extends Conexion implements Crud {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
             }
         }
-        return operacion;
+        
+       
+        return usuvo;
     }
 
     @Override
