@@ -13,19 +13,23 @@ public class RolVO {
     
     
     
-    private Integer rolid; 
-   private String roltipo;
+  
+   private String roltipo ,rolid;
 
      public RolVO() {
     }
 
+    public RolVO(String string, String string0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
-    public Integer getRolid() {
+    public String getRolid() {
         return rolid;
     }
 
-    public void setRolid(Integer rolid) {
+    public void setRolid(String rolid) {
         this.rolid = rolid;
     }
 

@@ -39,27 +39,9 @@ public class UsuarioRolcontrolador extends HttpServlet {
         String rolid = request.getParameter("textrolid");
         
 
-        UsuarioRolVO usuariorolVO = new UsuarioRolVO(usuarioid, rolid);
-
-        UsuarioRolDAO usuariorolDAO = new UsuarioRolDAO(usuariorolVO);
-
-        switch (opcion) {
-
-            case 1:
-
-                if (usuariorolDAO.agregar()) {
-
-                    request.setAttribute("mensajeExito", "Se registro "
-                            + "correctamente");
-                } else {
-
-                    request.setAttribute("mensajeError", "No se registro correctamente");
-                }
-                request.getRequestDispatcher("registrarDocente.jsp").forward(request, response);
-
-                break;
-
-        }
+        
+                
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

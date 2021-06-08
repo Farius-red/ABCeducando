@@ -62,32 +62,18 @@ public class Usuariocontrolador extends HttpServlet {
 
             case 1://Iniciar Sesion
 
-                if (usuDAO.iniciarSesion(usuarioLogin, usuarioPassword)) {
-                    
-                   if()
-        } 
-                   
-                   switch(listUR){
-                case usuRolDAO.get(0):
-                      request.getRequestDispatcher("administrativo.jsp").forward(request, response);
-                    
-                break;
-         }
-     }  
-           
-                   
-                    
+                if (usuDAO.iniciarSesion(usuarioLogin, usuarioPassword) != null)  {
+                        request.getRequestDispatcher("administrativo.jsp").forward(request, response);
                   
-                    
-            else {
+        } 
+              else {
                     
                     
                     request.setAttribute("mensajeError", "Datos incorrectos");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
-                break;
-                
-                case 2://Agregar Registro
+                break;     
+                      case 2://Agregar Registro
 
                 if (usuDAO.agregar()) {
 
@@ -103,8 +89,20 @@ public class Usuariocontrolador extends HttpServlet {
                 request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
 
                 break;
-        }
-    }
+                    
+         
+         }
+     }  
+           
+                   
+                    
+                  
+                    
+           
+                
+            
+        
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -27,6 +27,7 @@ public class UsuarioDAO extends Conexion implements Crud {
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
+    private   boolean operacion ;
 
     
    
