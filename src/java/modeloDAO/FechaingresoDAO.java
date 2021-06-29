@@ -19,7 +19,7 @@ import util.Crud;
  *
  * @author Hector
  */
-public class FechaingresoDAO extends Conexion implements Crud{
+public class FechaingresoDAO extends Conexion {
 
     //Declara elementos para manipulacion.
     private Connection conexion;
@@ -29,10 +29,12 @@ public class FechaingresoDAO extends Conexion implements Crud{
     //almacenamos el resultado de la operacion.
     public boolean operacion = false;
     //almacenamos las sentencias.
-    public String sql;
+    public String sql, consulta;
+    int idDat ;
 
-    private String docenteid = "", fechaingreso = "", fechasalida = "", datosnumeroid = "";
 
+    private String fechaingreso = "", fechasalida = "";
+    private int docenteid, datosnumeroid;
     public FechaingresoDAO(FechaIngresoVO fechaVO) {
         super();
 
@@ -48,17 +50,30 @@ public class FechaingresoDAO extends Conexion implements Crud{
 
     }
 
-    @Override
-    public boolean agregar() {
+
+    public boolean agregarFechas(Integer datosnuemroid, Integer rol) {
         
         try {
-            sql = "insert into docente(fechaingreso, fechasalida, datosnumeroid) values(?,?,?)";
+                
+     
+            
+             sql = "insert into rolYu(id_rolYu, rol,usuario,fechaingreso, fechasalida) values(?,?,?,?,?)";
+            
             puente = conexion.prepareStatement(sql);
-            puente.setString(1, fechaingreso);
-            puente.setString(2, fechasalida);
-            puente.setString(3, datosnumeroid);
+            puente.setInt(1, datosnuemroid);
+            puente.setInt(2, rol);
+            puente.setInt(3, datosnuemroid);
+            puente.setString(4,fechaingreso);
+            puente.setString(5, fechasalida);
             puente.executeUpdate();
             operacion = true;
+            
+       
+            
+          
+            
+            
+           
 
         } catch (Exception e) {
 
@@ -77,19 +92,6 @@ public class FechaingresoDAO extends Conexion implements Crud{
         
     }
 
-    @Override
-    public boolean listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean actualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
 }

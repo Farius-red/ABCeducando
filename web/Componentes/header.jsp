@@ -1,19 +1,5 @@
-<%@page import="modeloVO.UsuarioVO"%>
-<%@page import="modeloVO.ActividadCargadaVO"%>
-
- 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        
-        <title>Estudiante</title>
-        <meta name="description" content="Adminsitracion de estudiantes">
-        <jsp:include page="Componentes/head.jsp"  flush="true"></jsp:include>
-        
-    </head>
-    <body>
-        <header>
-            <!-- Header Start -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>  
+<header>
             <div class="header-area">
                 <div class="main-header ">
                     <div class="header-top d-none d-sm-block">
@@ -53,28 +39,36 @@
                                     <!-- Main-menu -->
                                     <div class="main-menu f-right d-none d-lg-block">
                                         <nav> 
-                                            <ul id="navigation">    
-                                                <h1>Estudiante</h1>
-                                                <h1></h1>
-                                                <li><a href="index.html"></a></li>
-                                                <li><a href="#">Actividades</a>
+                                            <ul id="navigation">   
+                                                   <ul class="submenu">
+                                                       <li><p></p>
+                                                       <li>
+                                                           <jsp:include page="Componentes/cerrarSesion.jsp" flush="true"/>
+                                                       </li>
+                                                    </ul>
+                                                <a href="administrativo.jsp"><h1>Administrativo</h1></a>
+                                                <li><a href="#">Matriculas</a>
                                                     <ul class="submenu">
-                                                        <li><a href="entregar_actividad.jsp">Entregar actividades</a></li>
-                                                        <li><a href="Actividades_pendientes_estudiante.jsp">Actividades pendientes</a></li>
-                                                        <li><a href="listar_actividades_entregadas.jsp">Actividades entregadas</a></li>
-
+                                                        <li><a href="registrar_matricula.jsp">Registrar matricula</a></li>
+                                                        <li><a href="#">Ver matriculas</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Notas</a>
+                                                <li><a href="#">Docente</a>
                                                     <ul class="submenu">
-                                                        <li><a href="#">Ver notas</a></li>
+                                                        <li><a href="registrarDocente.jsp">Registrar docente</a></li>
+                                                        <li><a href="listardocentes.jsp">Ver docentes</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Estudiante</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="registrarDocente.jsp">Registrar estudiantes</a></li>
+                                                        <li><a href="listarEstudiantes.jsp">Ver estudiantes</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">Mensajes</a>
                                                     <ul class="submenu">
-                                                        <li><a href="#">Redactar mensaje</a></li>
-                                                        <li><a href="#">Bandeja de entrada</a></li>
-                                                        <li><a href="#">Bandeja de salida</a></li>
+                                                        <li><a href="crearmensaje.jsp">Crear y listar mensajes</a></li>
+                                                        
                                                     </ul>
                                                 </li>    
                                             </ul>
@@ -92,22 +86,7 @@
             </div>
             <!-- Header End -->
         </header>
-        <section class="container-fluid">
-            <div class="row">
-
-                <div class="col-xl-12">
-                    <div class="registrodocente">
-                        <h1></h1>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-
-            </div>
-
-
-        </section>
-        <jsp:include page="Componentes/footer.jsp" flush="true"></jsp:include>
-    </body>
-</html>
+                                                       
+                                                       
+                                                       
+                                                       

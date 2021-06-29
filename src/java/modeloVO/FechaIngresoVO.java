@@ -11,23 +11,24 @@ package modeloVO;
  */
 public class FechaIngresoVO {
     
-    private String docenteid, fechaingreso, fechasalida, datosnumerid;
+    private String fechaingreso, fechasalida;
+    private int docenteid, datosnumerid;
 
     public FechaIngresoVO() {
     }
 
-    public FechaIngresoVO(String docenteid, String fechaingreso, String fechasalida, String datosnumerid) {
+    public FechaIngresoVO(Integer docenteid, String fechaingreso, String fechasalida, Integer datosnumerid) {
         this.docenteid = docenteid;
         this.fechaingreso = fechaingreso;
         this.fechasalida = fechasalida;
         this.datosnumerid = datosnumerid;
     }
 
-    public String getDocenteid() {
+    public int getDocenteid() {
         return docenteid;
     }
 
-    public void setDocenteid(String docenteid) {
+    public void setDocenteid(int docenteid) {
         this.docenteid = docenteid;
     }
 
@@ -47,11 +48,11 @@ public class FechaIngresoVO {
         this.fechasalida = fechasalida;
     }
 
-    public String getDatosnumerid() {
+    public int getDatosnumerid() {
         return datosnumerid;
     }
 
-    public void setDatosnumerid(String datosnumerid) {
+    public void setDatosnumerid(Integer datosnumerid) {
         this.datosnumerid = datosnumerid;
     }
     

@@ -19,7 +19,7 @@ import modeloVO.DatosPersonalesVO;
  *
  * @author Hector
  */
-@WebServlet(name = "Docentecontrolador", urlPatterns = {"/Docente"})
+@WebServlet(name = "Docente", urlPatterns = {"/Docente"})
 public class Docentecontrolador extends HttpServlet {
 
     /**
@@ -39,13 +39,13 @@ public class Docentecontrolador extends HttpServlet {
         String datosnombres = request.getParameter("textnombres");
         String datosapellidos = request.getParameter("textapellidos");
         String datostipoid = request.getParameter("texttipoid");
-        String datosnumeroid = request.getParameter("textnumeroid");
+        int idDatos = Integer.parseInt(request.getParameter("textnumeroid"));
         String datostelefono = request.getParameter("texttelefono");
         String datosemail = request.getParameter("textemail");
         String datosfechanac = request.getParameter("textfechanacimiento");
 
         DatosPersonalesVO datosVO = new DatosPersonalesVO(datosnombres, datosapellidos,
-                datostipoid, datosnumeroid, datostelefono, datosemail, datosfechanac);
+                datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
 
         DatosPersonalesDAO datosDAO = new DatosPersonalesDAO(datosVO);
 
@@ -55,14 +55,16 @@ public class Docentecontrolador extends HttpServlet {
 
                 if (datosDAO.agregar()) {
 
-                    request.setAttribute("mensajeExito", "Se registro "
+                    request.setAttribute("mensajeExito", "Se registro"
                             + "correctamente");
-                    request.getRequestDispatcher("fechaingresoDocente.jsp").forward(request, response);
+                     request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
                 } else {
 
                     request.setAttribute("mensajeError", "No se registro correctamente");
+                    request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+                    
                 }
-                request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+             
 
                 break;
 

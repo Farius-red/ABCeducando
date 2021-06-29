@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
        
-        <title>Document</title>
+        <title>Lista Estudiantes</title>
         <meta name="description" content="">
        
         <%@include  file="Componentes/head.jsp" %>
@@ -17,7 +17,7 @@
 
                 <div class="col-xl-12">
                     <div class="registrodocente">
-                        <h1>Docentes</h1>
+                        <h1>Estudiantes</h1>
                     </div>
                 </div>
                 <div class="container">
@@ -38,7 +38,7 @@
                                         
                                         DatosPersonalesVO datosVO = new DatosPersonalesVO();
                                         DatosPersonalesDAO datosDAO = new DatosPersonalesDAO();
-                                        ArrayList<DatosPersonalesVO> listadocentes = datosDAO.listardocentes();
+                                        ArrayList<DatosPersonalesVO> listadocentes = datosDAO.listarEstudiantes();
                                         for (int i = 0; i < listadocentes.size(); i++) {
                                             datosVO = listadocentes.get(i);
                                     %>

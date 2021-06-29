@@ -6,23 +6,21 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modeloDAO.UsuarioDAO;
-import modeloDAO.UsuarioRolDAO;
-import modeloVO.UsuarioRolVO;
 import modeloVO.UsuarioVO;
 
 /**
  *
  * @author Hector
  */
-@WebServlet(name = "Usuariocontrolador", urlPatterns = {"/Usuario"})
+@WebServlet(name = "Usuario", urlPatterns = {"/Usuario"})
 public class Usuariocontrolador extends HttpServlet {
 
     /**
@@ -39,70 +37,89 @@ public class Usuariocontrolador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Recogemos datos
         int opcion = Integer.parseInt(request.getParameter("opcion"));
-        String usuarioId = request.getParameter("textid");
-        String usuarioLogin = request.getParameter("textusuario");
+        int usuarioid = Integer.parseInt(request.getParameter("textid"));
+        String usuariologin = request.getParameter("textusuario");
         String usuarioPassword = request.getParameter("textclave");
-        String DatosNumeroId = request.getParameter("datosnumeroid");
 
         //enviamos datos al vo
-        UsuarioVO usuVO = new UsuarioVO(usuarioId, usuarioLogin, usuarioPassword, DatosNumeroId);
-
+        UsuarioVO usuVO = new UsuarioVO(usuariologin, usuarioPassword, usuarioid);
+        
+       
+     
         //Llamar al DAO y mandarlo los datos del VO
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
-         
-        UsuarioRolVO usuYrolVO = new UsuarioRolVO();
-              
-        UsuarioRolDAO usuRolDAO = new UsuarioRolDAO();
-                
-        ArrayList<UsuarioRolVO> usuidR = usuRolDAO.usuYrol();
-        
-      
-        
+        HttpSession miSesion = null; 
         switch (opcion) {
-
+            
             case 1://Iniciar Sesion
 
-                if (usuDAO.iniciarSesion(usuarioLogin, usuarioPassword) != null)  {
-                        request.getRequestDispatcher("administrativo.jsp").forward(request, response);
-                  
-        } 
-              else {
+                if (usuDAO.iniciarSesion(usuariologin, usuarioPassword)) {
                     
+                   miSesion = request.getSession(true);
+                  
+                    UsuarioDAO usuDaO = new UsuarioDAO(); 
+                    
+                    ArrayList<UsuarioVO> listaUsuario = usuDaO.sesionROl(usuariologin, usuarioPassword);
+                    miSesion.setAttribute("datosUsuario", listaUsuario);
+                    
+                    
+                    if("administrador" != listaUsuario.get(0).getNombrerol() ){
+                        System.out.print(listaUsuario.get(0).getNombrerol());
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                    
+                    }else if (listaUsuario.indexOf("estudiante") != -1){
+                        
+                             request.getRequestDispatcher("estudiante.jsp").forward(request, response);
+                    } else if(listaUsuario.indexOf("docente") != -1){
+                    
+                         request.getRequestDispatcher("docente.jsp").forward(request, response);
+                    }else{
+                             request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+                    
+                    
+                  
+
+                                   
+                } else {
                     
                     request.setAttribute("mensajeError", "Datos incorrectos");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
-                break;     
-                      case 2://Agregar Registro
+
+                //} 
+                //else {
+                //    request.setAttribute("mensajeError", "Datos incorrectos");
+                //  request.getRequestDispatcher("login.jsp").forward(request, response);
+                //}
+                break;            
+            case 2://Agregar Registro
 
                 if (usuDAO.agregar()) {
+              
 
                     request.setAttribute("mensajeExito", "¡El usuario se registro correctamente!");
-                    request.getRequestDispatcher("asignar_rol.jsp").forward(request, response);
-
-                } else {
-
-                    request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
-
-                }
-
-                request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
-
-                break;
-                    
-         
-         }
-     }  
-           
-                   
-                    
-                  
-                    
-           
-                
-            
-        
+                   if(miSesion == request.getSession() ){
+                       request.getRequestDispatcher("login.jsp").forward(request, response);
+                       
+                   }else{
+                       request.getRequestDispatcher("fechaingresoDocente.jsp").forward(request, response);
     
+                 
+                   }
+                    
+                } else {
+                    
+                    request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
+                    
+                }
+                
+                
+                
+                break;
+            
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

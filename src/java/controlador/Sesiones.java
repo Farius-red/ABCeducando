@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controlador;
 
 import java.io.IOException;
@@ -12,17 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modeloDAO.FechaingresoDAO;
-import modeloDAO.UsuarioDAO;
-import modeloVO.FechaIngresoVO;
-import modeloVO.UsuarioVO;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Hector
- */
-@WebServlet(name = "Fechaingresocontrolador", urlPatterns = {"/Fechaingreso"})
-public class Fechaingresocontrolador extends HttpServlet {
+
+@WebServlet(name = "Sesiones", urlPatterns = {"/Sesiones"})
+public class Sesiones extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,42 +26,12 @@ public class Fechaingresocontrolador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Recogemos datos
-        int opcion = Integer.parseInt(request.getParameter("opcion"));
-        int docenteid =Integer.parseInt(request.getParameter("textdocumentoid"));
-        String fechaingreso = request.getParameter("textfechaingreso");
-        String fechasalida = request.getParameter("textfechasalida");
-        int datosnumeroid = Integer.parseInt(request.getParameter("textdocumentoid"));
-        int rol = Integer.parseInt(request.getParameter("textrol"));
-
-        //enviamos datos al vo
-        FechaIngresoVO fechaVO = new FechaIngresoVO(docenteid, fechaingreso, fechasalida, datosnumeroid);
-
-        //Llamar al DAO y mandarlo los datos del VO
-        FechaingresoDAO fechaDAO = new FechaingresoDAO(fechaVO);
         
-        switch (opcion) {
-
-            
-                
-                case 1://Agregar Registro
-
-                if (fechaDAO.agregarFechas(datosnumeroid,rol )) {
-
-                    request.setAttribute("mensajeExito", "¡El usuario se registro correctamente!");
-                   request.getRequestDispatcher("listardocentes.jsp").forward(request, response);
-
-                } else {
-
-                    request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
-
-                }
-                
-                
-                
-
-                break;
-        }
+        HttpSession sesion =  request.getSession();
+       sesion.removeAttribute("datosUsuario");
+       sesion.invalidate();
+       
+       request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

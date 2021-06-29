@@ -11,17 +11,18 @@ package modeloVO;
  */
 public class DatosPersonalesVO {
     
-    private String datosnombres, datosapellidos, datostipoid, datosnumeroid, 
+    private String datosnombres, datosapellidos, datostipoid, 
             datostelefono, datosemail, datosfechanac; 
+    private int idDatos;
 
     public DatosPersonalesVO() {
     }
 
-    public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, String datosnumeroid, String datostelefono, String datosemail, String datosfechanac) {
+    public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac) {
         this.datosnombres = datosnombres;
         this.datosapellidos = datosapellidos;
         this.datostipoid = datostipoid;
-        this.datosnumeroid = datosnumeroid;
+        this.idDatos = idDatos;
         this.datostelefono = datostelefono;
         this.datosemail = datosemail;
         this.datosfechanac = datosfechanac;   
@@ -51,13 +52,15 @@ public class DatosPersonalesVO {
         this.datostipoid = datotipoid;
     }
 
-    public String getDatosnumeroid() {
-        return datosnumeroid;
+    public int getIdDatos() {
+        return idDatos;
     }
 
-    public void setDatosnumeroid(String datonumeroid) {
-        this.datosnumeroid = datonumeroid;
+    public void setIdDatos(int idDatos) {
+        this.idDatos = idDatos;
     }
+
+ 
 
     public String getDatostelefono() {
         return datostelefono;

@@ -1,18 +1,8 @@
-<%@page import="modeloVO.UsuarioVO"%>
-<%@page import="modeloVO.ActividadCargadaVO"%>
 
- 
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        
-        <title>Estudiante</title>
-        <meta name="description" content="Adminsitracion de estudiantes">
-        <jsp:include page="Componentes/head.jsp"  flush="true"></jsp:include>
-        
-    </head>
-    <body>
-        <header>
+     <header>
             <!-- Header Start -->
             <div class="header-area">
                 <div class="main-header ">
@@ -54,27 +44,25 @@
                                     <div class="main-menu f-right d-none d-lg-block">
                                         <nav> 
                                             <ul id="navigation">    
-                                                <h1>Estudiante</h1>
-                                                <h1></h1>
-                                                <li><a href="index.html"></a></li>
+                                                <a href="docente.jsp"><h1>Docente</h1></a>
+                                                <li><a href="#"></a></li>
                                                 <li><a href="#">Actividades</a>
                                                     <ul class="submenu">
-                                                        <li><a href="entregar_actividad.jsp">Entregar actividades</a></li>
-                                                        <li><a href="Actividades_pendientes_estudiante.jsp">Actividades pendientes</a></li>
-                                                        <li><a href="listar_actividades_entregadas.jsp">Actividades entregadas</a></li>
-
+                                                        <li><a href="cargar_actividad.jsp">Cargar actividad</a></li> 
+                                                        <li><a href="listar_actividad.jsp">Actividades cargadas</a></li>    
+                                                        <li><a href="listar_actividades_entregadas.jsp">Calificar actividades</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">Notas</a>
                                                     <ul class="submenu">
                                                         <li><a href="#">Ver notas</a></li>
+                                                        <li><a href="#"></a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">Mensajes</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="#">Redactar mensaje</a></li>
-                                                        <li><a href="#">Bandeja de entrada</a></li>
-                                                        <li><a href="#">Bandeja de salida</a></li>
+                                                                                                        <ul class="submenu">
+                                                        <li><a href="crearmensaje.jsp">Crear y listar mensajes</a></li>
+                                                        
                                                     </ul>
                                                 </li>    
                                             </ul>
@@ -92,22 +80,3 @@
             </div>
             <!-- Header End -->
         </header>
-        <section class="container-fluid">
-            <div class="row">
-
-                <div class="col-xl-12">
-                    <div class="registrodocente">
-                        <h1></h1>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-
-            </div>
-
-
-        </section>
-        <jsp:include page="Componentes/footer.jsp" flush="true"></jsp:include>
-    </body>
-</html>
