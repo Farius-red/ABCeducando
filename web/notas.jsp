@@ -1,9 +1,9 @@
 <%@page import="modeloDAO.DocenteDAO"%>
-
+<%@page import="modeloVO.ActividadCargadaVO"%>
 <%@page import="modeloDAO.UsuarioDAO"%>
 <%@page import="modeloVO.UsuarioVO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modeloVO.ActividadCargadaVO"%>
+
 <%@page import="modeloVO.ActividadEntregadaVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Componentes/Sessiones.jsp" %>
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="registrodocente">
-                        <h1>Actividades cargadas</h1>                                          
+                        <h1>Notas Estudiantes</h1>                                          
                     </div>
                 </div>
             </div>
@@ -41,13 +41,11 @@
                             <table class="actividadescargadas table-hover container">
                                 <thead class="text-white" style="background: #ED078B;">
                                     <tr> 
-                                        <th>idActividadEntregada</th>
+                                        
                                         <th>idActividad</th>
                                         <th>calificacion</th>
-                                        <th>Archivo</th>
-                                        <th>Estado</th>
                                         <th>Estudiante</th>
-                                        <th>Acción</th>
+                                    
                                     </tr>
                                 </thead>
 
@@ -71,33 +69,11 @@
                                             datosVO = listaActividad.get(i);
                                     %>
                                     <tr>
-                                        <td><%=datosVO.getActividadEntregadaId()%></td>
+                                   
                                         <td><%=datosVO.getIdActividadCargada()%></td>
                                         <td><%=datosVO.getCalificacion()%></td>
-                                        <td>
-
-                                            <a href="<%=datosVO.getActividadEntregadaRuta()%>" target="_blank"><img src="img/actividad.png" title="pdf"/></a>
-
-                                        </td>
-                                        <td><%=datosVO.getActividadEntregadaEstado() %></td>
-                                        <td><%=datosVO.getEstudianteId()%></td>
-                                        <td>
-                                            <form id="crudForm"  action="Docente" method="post">
-                                                <input type="hidden" name="idAcrividad" value="<%=datosVO.getActividadEntregadaId()%>"/>
-                                                <input type="hidden" name="estado" value="calificado"/>
-                                                <select name="calificacion" id="cars">
-                                                    <option>seleccione Calificacion</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                                <input id="metodo" name="opcion" value="calificar" type="hidden"/>
-                                                <button type="submit" class="btn btn-primary"> Calificar </button>
-
-                                            </form>
-                                        </td>
+                                       <td><%=datosVO.getEstudianteId()%></td>
+                                    
                                     </tr>
                                     
                                        <% }%>

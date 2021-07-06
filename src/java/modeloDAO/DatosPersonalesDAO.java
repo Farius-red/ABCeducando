@@ -177,7 +177,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
     }
 
     @Override
-    public boolean eliminar() {
+    public boolean eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

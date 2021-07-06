@@ -11,24 +11,22 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import modeloDAO.DocenteDAO;
-import modeloVO.ActividadCargadaVO;
+import modeloDAO.EstudianteDAO;
 
+import modeloVO.ActividadEntregadaVO;
 
 /**
  *
- * @author Hector
+ * @author daniel
  */
-@WebServlet(name ="Docente", urlPatterns = {"/Docente"})
-@MultipartConfig
-public class Docentecontrolador extends HttpServlet {
+@WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
+public class EstudianteControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +40,6 @@ public class Docentecontrolador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         String opcion = request.getParameter("opcion");
         
 
@@ -54,17 +51,18 @@ public class Docentecontrolador extends HttpServlet {
             case "registrar": // cargar pdf
                 
             Part urlDocumento = request.getPart("urlArchivo");
-            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            String descripcion = request.getParameter("descripcion");
+            int id = Integer.parseInt(request.getParameter("idActividad"));
+            String estudianteId = request.getParameter("nombre");
+            
             InputStream is = urlDocumento.getInputStream();
             String nombreArchivo = urlDocumento.getSubmittedFileName();
             File arch = new File("/home/daniel/Escritorio/proyectosjava/chinoSena/web/Doc/documentos/pdf/"+nombreArchivo);
             FileOutputStream out = new FileOutputStream(arch);
             String rutaArchivo ="/Doc/documentos/pdf/"+nombreArchivo;
              
-             
-            ActividadCargadaVO actividadCargada = new ActividadCargadaVO(nombreArchivo, descripcion,rutaArchivo,idUsuario);
-            DocenteDAO docenteDao = new DocenteDAO(actividadCargada);
+        
+            ActividadEntregadaVO actividadEntregada = new  ActividadEntregadaVO(estudianteId,id,rutaArchivo);
+            EstudianteDAO estudianteDao = new EstudianteDAO(actividadEntregada);
              
              int dato = is.read();
              while(dato != -1){
@@ -76,57 +74,28 @@ public class Docentecontrolador extends HttpServlet {
              out.close();
              is.close();
                      
-           if(docenteDao.agregar()){
+           if(estudianteDao.agregar()){
                 request.setAttribute("mensajeExito", "¡La Actividad se registro correctamente!");
-                request.getRequestDispatcher("listar_actividad.jsp").forward(request, response);
+                request.getRequestDispatcher("activi_entregadas_estudiante.jsp").forward(request, response);
            
            }else{
             request.setAttribute("mensajeError", "¡La actividad no se pudo registrar  correctamente!");
-                request.getRequestDispatcher("cargar_actividad.jsp").forward(request, response);
+                request.getRequestDispatcher("entregar_actividad.jsp").forward(request, response);
            
            }
                 break;
                 
-            case "eliminar": //eliminar pdf 
-               int idActividad = Integer.parseInt(request.getParameter("idAcrividad"));
-               String urlArchiv= request.getParameter("urlArchivo");
-                     File archivo = new File(urlArchiv);
-                     archivo.delete();
-                     
-                DocenteDAO doce  = new DocenteDAO();
-                if(doce.eliminar(idActividad)){
-                 request.setAttribute("mensajeExito", "¡Se Elimino  correctamente la activida con id!"+ idActividad);
-                request.getRequestDispatcher("listar_actividad.jsp").forward(request, response);
-                    
-                } else {
-                    request.setAttribute("mensajeError", "¡La actividad no se pudo Eliminar!");
-                request.getRequestDispatcher("listar_actividad.jsp").forward(request, response);
-            }
-            
-                    break;
-                    
-            case "calificar":
-                
-                 String estado = request.getParameter("estado");
-                 int idActivida = Integer.parseInt(request.getParameter("idAcrividad"));
-                 int calificacion  = Integer.parseInt(request.getParameter("calificacion"));
-                   DocenteDAO docetedao  = new DocenteDAO();
-                   
-                 if(docetedao.calificar(estado, calificacion, idActivida)){
-                  request.setAttribute("mensajeExito", "¡Su calificaicon se registro correctamente!");
-                request.getRequestDispatcher("listar_actividades_entregadas.jsp").forward(request, response);
+          
+            case "idActividad":
+                 int idActi = Integer.parseInt(request.getParameter("idActividad"));
+                  request.setAttribute("idActividad",idActi);
+                  request.getRequestDispatcher("entregar_actividad.jsp").forward(request, response);
                  
-                 }else{
-                 
-                     request.setAttribute("mensajeError", "¡La actividad no se pudo ser Calificada!");
-                request.getRequestDispatcher("listar_actividades_entregadas.jsp").forward(request, response);
-                 }
-                
                 break;
-
-
+                
+                
+                
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

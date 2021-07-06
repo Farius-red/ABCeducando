@@ -1,7 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="modeloDAO.UsuarioDAO"%>
 <%@page import="modeloVO.UsuarioVO"%>
 <%@page import="modeloVO.ActividadCargadaVO"%>
 
- 
+ <%@include file="Componentes/Sessiones.jsp"%>
+<%@include file="Componentes/datosUsuarioSesion.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,86 +15,7 @@
         
     </head>
     <body>
-        <header>
-            <!-- Header Start -->
-            <div class="header-area">
-                <div class="main-header ">
-                    <div class="header-top d-none d-sm-block">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="d-flex justify-content-between flex-wrap align-items-center">
-                                        <div class="header-info-left">
-                                            <ul>     
-                                                <li><i class="fas fa-map-marker-alt"></i> 57/A, Green Lane, NYC</li>
-                                                <li><i class="fas fa-phone-alt"></i> +10 (78) 367 3692</li>
-                                            </ul>
-                                        </div>
-                                        <div class="header-info-right">
-                                            <ul class="header-social">    
-                                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-bottom  header-sticky">
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <!-- Logo -->
-                                <div class="col-xl-2 col-lg-2">
-                                    <div class="logo">
-                                        <a href="index.jsp"><img src="assets/img/logo/logo.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-10 col-lg-10">
-                                    <!-- Main-menu -->
-                                    <div class="main-menu f-right d-none d-lg-block">
-                                        <nav> 
-                                            <ul id="navigation">    
-                                                <h1>Estudiante</h1>
-                                                <h1></h1>
-                                                <li><a href="index.html"></a></li>
-                                                <li><a href="#">Actividades</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="entregar_actividad.jsp">Entregar actividades</a></li>
-                                                        <li><a href="Actividades_pendientes_estudiante.jsp">Actividades pendientes</a></li>
-                                                        <li><a href="listar_actividades_entregadas.jsp">Actividades entregadas</a></li>
-
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Notas</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="#">Ver notas</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Mensajes</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="#">Redactar mensaje</a></li>
-                                                        <li><a href="#">Bandeja de entrada</a></li>
-                                                        <li><a href="#">Bandeja de salida</a></li>
-                                                    </ul>
-                                                </li>    
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div> 
-                                <!-- Mobile Menu -->
-                                <div class="col-12">
-                                    <div class="mobile_menu d-block d-lg-none"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Header End -->
-        </header>
+    <%@include file="Componentes/Estudiante/headEstudiante.jsp" %>
         <section class="container-fluid">
             <div class="row">
 
@@ -102,8 +26,24 @@
                 </div>
 
             </div>
-            <div class="row">
-
+            <div class="row container d-flex align-center">
+                <div>
+                 <%
+                                        int idEstudiante = 0;
+                                        UsuarioVO usu = new UsuarioVO();
+                                    UsuarioDAO usudao = new UsuarioDAO();
+                                    miSesion.getAttribute("datosUsuario");
+                                    ArrayList<UsuarioVO> datosU = (ArrayList<UsuarioVO>)  miSesion.getAttribute("datosUsuario");
+                                    
+                                      for (int i = 0; i < datosU.size(); i++) {
+                                              usu = datosU.get(i);
+                                              idEstudiante= usu.getUsuarioid();
+                                  
+                                     
+                                      %>
+                                      
+                                      <h1>Bienvenido: <%=usu.getNombre()%></h1>
+                                      <%}%>
             </div>
 
 

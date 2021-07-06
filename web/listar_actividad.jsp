@@ -1,10 +1,13 @@
+<%@page import="modeloDAO.UsuarioDAO"%>
+<%@page import="modeloVO.UsuarioVO"%>
+<%@page import="modeloDAO.DocenteDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modeloDAO.ActividadCargadaDAO"%>
+
 <%@page import="modeloVO.ActividadCargadaVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<!DOCTYPE html>
+
+<%@include file="Componentes/Sessiones.jsp" %>
+<%@include file="Componentes/datosUsuarioSesion.jsp" %>
 <html lang="en">
     <head>
       
@@ -13,6 +16,7 @@
         <%@include file="Componentes/head.jsp" %>
     </head>
     <body>
+        
         <%@include file="Componentes/docente/headDocente.jsp" %>
         <section class="container-fluid">
             <div class="row">
@@ -28,74 +32,77 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="datospersonales">
-                        <!--<body>-->
-                        <!--<center>
-                            <h1></h1>
-                        </center>-->
+                        
 
-                        <%
-                            ActividadCargadaDAO emp = new ActividadCargadaDAO();
-                            ActividadCargadaVO actividadcargadavo = new ActividadCargadaVO();
-                            ArrayList<ActividadCargadaVO> listar = emp.Listar_ActividadCargadaVO();
-                        %>
+                       
 
                         <div class="datagrid">
-                            <table class="actividadescargadas">
-                                <thead>
+                            <table class="actividadescargadas table-hover container">
+                                <thead  class="text-white" style="background: #ED078B;">
                                     <tr> 
-                                        <!--<th>Codigo</th>-->
+                                       <th>idActividad</th>
                                         <th>Nombre</th>
                                         <th>Descripcion</th>
                                         <th>Archivo</th>
-                                        <th>Docente</th>
+                                        
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            <div id="paging"><ul><li><a href="#"><span>Previous</span></a></li><li><a href="#" class="active"><span>1</span></a></li><li><a href="#"><span>2</span></a></li><li><a href="#"><span>3</span></a></li><li><a href="#"><span>4</span></a></li><li><a href="#"><span>5</span></a></li><li><a href="#"><span>Next</span></a></li></ul>
-                                            </div>
-                                    </tr>
-                                </tfoot>
-                                <!--<tbody>-->
-                                    <%if (listar.size() > 0) {
-                                            for (ActividadCargadaVO listar2 : listar) {
-                                                actividadcargadavo = listar2;
+                                
+                                <tbody>
+                                  
+                                      
+                                    <%
+                                        int idDocente = 0;
+                                        UsuarioVO usu = new UsuarioVO();
+                                    UsuarioDAO usudao = new UsuarioDAO();
+                                    miSesion.getAttribute("datosUsuario");
+                                    ArrayList<UsuarioVO> datosU = (ArrayList<UsuarioVO>)  miSesion.getAttribute("datosUsuario");
+                                    
+                                      for (int i = 0; i < datosU.size(); i++) {
+                                              usu = datosU.get(i);
+                                              idDocente = usu.getUsuarioid();
+                                      }
+                                        
+                                        ActividadCargadaVO datosVO = new ActividadCargadaVO();
+                                       DocenteDAO datosDAO = new DocenteDAO();
+                                        ArrayList<ActividadCargadaVO> listaActividad = datosDAO.listarActivades(idDocente);
+                                        for (int i = 0; i < listaActividad.size(); i++) {
+                                            datosVO = listaActividad.get(i);
                                     %>
                                     <tr>
-                                        <!--<td><%=actividadcargadavo.getActividadcargadaid()%></td>-->
-                                        <td><%=actividadcargadavo.getActividadcargadanombre()%></td>
-                                        <td><%=actividadcargadavo.getActividadcargadadescripcion()%></td>
-                                        <td>
-                                            <%
-                                                if (actividadcargadavo.getActcararchivo2() != null) {
-                                            %>
-                                            <a href="actividadcargada?id=<%=actividadcargadavo.getActividadcargadaid()%>" target="_blank"><img src="img/actividad.png" title="pdf"/></a>
-                                                <%
-                                                    } else {
-                                                        out.print("Vacio");
-                                                    }
-                                                %>
+                                        <td><%=datosVO.getActividadCargadaId()%></td>
                                         </td>
-                                        <td><%=actividadcargadavo.getDocenteid()%></td>
+                                        <td><%=datosVO.getActividadCargadaNombre()%></td>
+                                        <td><%=datosVO.getActividadCargadaDescripcion()%></td>
                                         <td>
-                                            <a id="mostrar" href="ActividadCargada?action=insert&id=<%=actividadcargadavo.getActividadcargadaid()%>"> <img src="img/nuevo1.png" title="Nuevo registro"/></a>
-                                            <a href="ActividadCargada?action=edit&id=<%=actividadcargadavo.getActividadcargadaid()%>"> <img src="img/editar1.png" title="Modificar"/></a>
-                                            <a href="ActividadCargada?action=delete&id=<%=actividadcargadavo.getActividadcargadaid()%>"> <img src="img/delete1.png" title="Eliminar"/></a>
+                                            
+                                            <a href="<%=datosVO.getRutaArchivo()%>" target="_blank"><img src="img/actividad.png" title="pdf"/></a>
+                              
+                                        </td>
+                                        
+                                        <td>
+                                            <form id="crudForm"  action="Docente" method="post">
+                                                <input type="hidden" name="idAcrividad" value="<%=datosVO.getActividadCargadaId()%>"/>
+                                                <input type="hidden" name="urlArchivo" value="<%=datosVO.getRutaArchivo()%>"/>
+                                                <input id="metodo" name="opcion" type="hidden" value="eliminar"/>
+                                                
+                                            <button onclick="crud('eliminar')"> <img src="img/delete1.png" title="Eliminar"/></button>
+                                            </form>
                                         </td>
                                     </tr>
-                                    <%}
-                                        }%>
-                                <!--</tbody>-->
+                                   <% }%>
+                                </tbody>
+                                
+                                
                             </table>
                         </div>
-                        <!--</body>-->
+                  
 
                     </div>
                 </div>
                 <div class="col-xl-2">
-
+                    <%@include file="Componentes/mensajesRespuesta.jsp" %>
                 </div>
 
             </div>
@@ -104,4 +111,5 @@
         </section>
                                         <%@include file="Componentes/footer.jsp" %>
     </body>
+    <script src="assets/js/crud/crud.js" type="text/javascript"></script>
 </html>

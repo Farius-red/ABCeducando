@@ -16,7 +16,7 @@
                                         </div>
                                         <div class="footer-tittle">
                                             <div class="footer-pera">
-                                                <p>Users and submit their own items. You can create different packages and by connecting with your PayPal or Stripe account charge users for registration.</p>
+                                                <p>Nuestro objetivo enseñar de la mejor forma con estándar de calidad</p>
                                             </div>
                                         </div>
                                         <!-- social -->
@@ -32,13 +32,13 @@
                             <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4">
                                 <div class="single-footer-caption mb-50">
                                     <div class="footer-tittle">
-                                        <h4>Quick Links </h4>
+                                        <h4>Enlaces rapidos </h4>
                                         <ul>
-                                            <li><a href="#">Classes</a></li>
+                                            <li><a href="#">Clases</a></li>
                                             <li><a href="#">Join with us</a></li>
-                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">Sobre Nosotros</a></li>
                                             <li><a href="#">Blog</a></li>
-                                            <li><a href="#">Events</a></li>
+                                            <li><a href="#">Eventos</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -46,13 +46,13 @@
                             <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6">
                                 <div class="single-footer-caption mb-50">
                                     <div class="footer-tittle">
-                                        <h4>About Us</h4>
+                                        <h4>Sobre Nosotros</h4>
                                         <ul>
-                                            <li><a href="#">Our Team</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
-                                            <li><a href="#">Testimonial</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">User Stories</a></li>
+                                            <li><a href="#">Nuestro Equipo</a></li>
+                                            <li><a href="#">Politicas De Privacidad</a></li>
+                                            <li><a href="#">Testimonios</a></li>
+                                            <li><a href="#">Programas</a></li>
+                                            <li><a href="#">Nuestras historias</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-xl-12 ">
                                     <div class="footer-copy-right text-center">
-                                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" rel="nofollow noopener">Colorlib</a>
+                                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Elaborado por | 
                                         </p>
                                     </div>
                                 </div>

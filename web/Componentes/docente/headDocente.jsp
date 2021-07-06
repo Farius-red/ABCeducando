@@ -13,8 +13,8 @@
                                     <div class="d-flex justify-content-between flex-wrap align-items-center">
                                         <div class="header-info-left">
                                             <ul>     
-                                                <li><i class="fas fa-map-marker-alt"></i> 57/A, Green Lane, NYC</li>
-                                                <li><i class="fas fa-phone-alt"></i> +10 (78) 367 3692</li>
+                                                <li><i class="fas fa-map-marker-alt"></i> Bogota</li>
+                                                <li><i class="fas fa-phone-alt"></i> 318-929-333</li>
                                             </ul>
                                         </div>
                                         <div class="header-info-right">
@@ -55,16 +55,18 @@
                                                 </li>
                                                 <li><a href="#">Notas</a>
                                                     <ul class="submenu">
-                                                        <li><a href="#">Ver notas</a></li>
-                                                        <li><a href="#"></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Mensajes</a>
-                                                                                                        <ul class="submenu">
-                                                        <li><a href="crearmensaje.jsp">Crear y listar mensajes</a></li>
+                                                        <li><a href="notas.jsp">Ver notas</a></li>
                                                         
                                                     </ul>
-                                                </li>    
+                                                </li>
+                                                  
+                                                
+                                                  <li><a href="#">Cerrar Sesion</a>
+                                                                                                        <ul class="submenu">
+                                                                                                            <li><%@include file="../cerrarSesion.jsp" %></li>
+                                                        
+                                                    </ul>
+                                                </li>   
                                             </ul>
                                         </nav>
                                     </div>

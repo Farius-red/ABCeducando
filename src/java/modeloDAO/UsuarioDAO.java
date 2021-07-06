@@ -5,37 +5,37 @@
  */
 package modeloDAO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modeloVO.UsuarioVO;
 import util.Conexion;
 import util.Crud;
+import util.Excel;
 
 /**
  *
  * @author Hector
  */
 public class UsuarioDAO extends Conexion implements Crud {
-    
-    
+
     //Declara elementos para manipulacion.
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
-    private   boolean operacion = false ;
-
-    
-   
+    private boolean operacion = false;
+  
     //almacenamos las sentencias.
-    public String sql;
+    public String sql, consul,sql2;
 
-    private  String usuariologin, usuarioPassword,nombres,apellidos,email,nombrerol,telefono;
+    private String usuariologin, usuarioPassword, nombres, apellidos, email, nombrerol, telefono;
     private Integer usuarioid;
     private Date fechaNacimiento;
 
@@ -49,20 +49,20 @@ public class UsuarioDAO extends Conexion implements Crud {
             usuarioPassword = usuVO.getUsuarioPassword();
             nombres = usuVO.getNombre();
             apellidos = usuVO.getApellidos();
-            email= usuVO.getEmail();
+            email = usuVO.getEmail();
             nombrerol = usuVO.getNombrerol();
             telefono = usuVO.getTelefono();
-           fechaNacimiento= usuVO.getFechaNacimiento();
+            fechaNacimiento = usuVO.getFechaNacimiento();
         } catch (Exception e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }
 
     public UsuarioDAO() {
-      //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     // este metodo solicita dos parametros y retorna un objeto que contine los datos de la sesion
     public boolean iniciarSesion(String usuario, String clave) {
 
@@ -77,41 +77,38 @@ public class UsuarioDAO extends Conexion implements Crud {
 
             if (mensajero.next()) {
                 operacion = true;
-              
+
             }
 
         } catch (SQLException e) {
             System.err.println(e.toString());
-        }finally{
+        } finally {
             try {
                 this.cerrarConexion();
             } catch (SQLException e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return operacion;
     }
 
+    public ArrayList<UsuarioVO> sesionROl(String usuariologin, String clave) {
 
-     public ArrayList<UsuarioVO> sesionROl(String usuariologin, String clave) {
-
-        UsuarioVO usuVO ;
+        UsuarioVO usuVO;
         ArrayList<UsuarioVO> listausu = new ArrayList<>();
 
         try {
             conexion = this.obtenerConexion();
             sql = "SELECT usuarioid, usuariologin,nombreRol,rol,nombre,apellidos,email,fechaNacimiento,telefono FROM rolYu inner JOIN usuarios on usuarios.usuarioid = rolYu.usuario INNER JOIN DatosUsuario on DatosUsuario.idDatos = usuarios.datosUsuarioID INNER JOIN ROL ON ROL.idRol = rolYu.rol WHERE usuarios.usuariologin=? and usuarios.usuarioPassword=?";
-              
-            
+
             puente = conexion.prepareStatement(sql);
             puente.setString(1, usuariologin);
             puente.setString(2, clave);
-            
-        
+
             mensajero = puente.executeQuery();
 
             while (mensajero.next()) {
-                  
+
                 usuVO = new UsuarioVO(
                         mensajero.getInt("usuarioid"),
                         mensajero.getString("usuariologin"),
@@ -122,16 +119,14 @@ public class UsuarioDAO extends Conexion implements Crud {
                         mensajero.getString("email"),
                         mensajero.getDate("fechaNacimiento"),
                         mensajero.getString("telefono")
-                        
-                        
-                );         
+                );
 
                 listausu.add(usuVO);
 
             }
         } catch (SQLException e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally {
+        } finally {
 
             try {
                 this.cerrarConexion();
@@ -140,23 +135,94 @@ public class UsuarioDAO extends Conexion implements Crud {
             }
 
         }
-        
+
         return listausu;
 
     }
-     
- 
-    
+
+    public boolean cargarMatriculas(String urlDocumento) throws IOException, SQLException {
+
+        Excel excel = new Excel();
+
+        try {
+            
+            UsuarioVO usuvo = new UsuarioVO();
+            ArrayList<UsuarioVO> cargarMatricula = excel.cargarMatricula(urlDocumento);
+            
+            
+            // si la lista que trae de el metodo de carga de matriculas tiene datos 
+            // los itera y los inserta en la base de datos
+            if(!cargarMatricula.isEmpty()){
+           for (int i = 0; i < cargarMatricula.size(); i++) {
+                usuvo= cargarMatricula.get(i);
+            
+                
+                consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellido,telefono,email,fechaNacimiento) values(?,?,?,?,?,?,?)";
+                puente = conexion.prepareStatement(consul);
+                puente.setInt(1, usuvo.getUsuarioid());
+                puente.setString(2, usuvo.getDatostipoid());
+                puente.setString(3, usuvo.getNombre());
+                puente.setString(4, usuvo.getApellidos());
+                puente.setString(5, usuvo.getTelefono());
+                puente.setString(6, usuvo.getEmail());
+                puente.setDate(7, usuvo.getFechaNacimiento());
+                
+                puente.executeUpdate();
+                
+                sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword) values(?,?,?)";
+                puente = conexion.prepareStatement(sql);
+                puente.setInt(1, usuvo.getUsuarioid());
+                puente.setString(2, usuvo.getEmail());
+                puente.setString(3, usuvo.getUsuarioPassword());
+
+                puente.executeUpdate();
+            
+                 
+                sql2 = "insert into rolYu(id_rolYu,rol,usuario) values(?,?,?,?)";
+                puente = conexion.prepareStatement(sql2);
+                puente.setInt(1, usuvo.getUsuarioid());
+                puente.setInt(2, 2);
+                puente.setInt(3, usuvo.getUsuarioid());
+
+                puente.executeUpdate();
+                
+                
+                 
+                sql2 = "insert into Matricula(MatriculaId,EstudianteId) values(?,?)";
+                puente = conexion.prepareStatement(sql2);
+                puente.setInt(1, usuvo.getUsuarioid());
+                puente.setInt(2, usuvo.getUsuarioid());
+
+                puente.executeUpdate();
+            
+            
+                   }
+           
+                   operacion = true;
+             
+            } 
+
+        } catch (IOException | SQLException e) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            this.cerrarConexion();
+        }
+
+        return operacion;
+    }
+
+   
+
     @Override
     public boolean agregar() {
-        
+
         try {
             sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword) values(?,?,?)";
             puente = conexion.prepareStatement(sql);
             puente.setInt(1, usuarioid);
             puente.setString(2, usuariologin);
             puente.setString(3, usuarioPassword);
-            
+
             puente.executeUpdate();
             operacion = true;
 
@@ -174,9 +240,9 @@ public class UsuarioDAO extends Conexion implements Crud {
 
         }
         return operacion;
-        
+
     }
-    
+
     public ArrayList<UsuarioVO> listarusu() {
 
         UsuarioVO usuVO = null;
@@ -189,8 +255,8 @@ public class UsuarioDAO extends Conexion implements Crud {
             mensajero = puente.executeQuery();
 
             while (mensajero.next()) {
-                  
-                 usuVO.setUsuarioid(mensajero.getInt(1));
+
+                usuVO.setUsuarioid(mensajero.getInt(1));
                 usuVO.setUsuariologin(mensajero.getString(2));
                 usuVO.setNombrerol(mensajero.getString("nombreRol"));
                 usuVO.setNombre(mensajero.getString("nombre"));
@@ -204,7 +270,7 @@ public class UsuarioDAO extends Conexion implements Crud {
             }
         } catch (SQLException e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally {
+        } finally {
 
             try {
                 this.cerrarConexion();
@@ -213,7 +279,7 @@ public class UsuarioDAO extends Conexion implements Crud {
             }
 
         }
-        
+
         return listausu;
 
     }
@@ -229,8 +295,10 @@ public class UsuarioDAO extends Conexion implements Crud {
     }
 
     @Override
-    public boolean eliminar() {
+    public boolean eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+   
+
 }

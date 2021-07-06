@@ -1,33 +1,28 @@
+
 <%@page import="modeloDAO.EstudianteDAO"%>
-<%@page import="modeloDAO.DocenteDAO"%>
-<%@page import="modeloVO.ActividadCargadaVO"%>
+<%@page import="modeloVO.ActividadEntregadaVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modeloDAO.UsuarioDAO"%>
 <%@page import="modeloVO.UsuarioVO"%>
-<%@page import="java.util.ArrayList"%>
-
-<%@page import="modeloVO.ActividadEntregadaVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Componentes/Sessiones.jsp" %>
 <%@include file="Componentes/datosUsuarioSesion.jsp" %>
-
-
+<!DOCTYPE html>
 <html lang="en">
     <head>
-     
-        <title>Lista actividades Pendientes</title>
+
+        <title>Listar Actividades</title>
         <meta name="description" content="">
-        
         <%@include file="Componentes/head.jsp" %>
-     
+
     </head>
     <body>
         <%@include file="Componentes/Estudiante/headEstudiante.jsp" %>
-      
-                      <section class="container-fluid">
+        <section class="container-fluid">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="registrodocente">
-                        <h1>Actividades Pendientes</h1>                                          
+                        <h1>Actividades Entregadas</h1>                                          
                     </div>
                 </div>
             </div>
@@ -45,12 +40,12 @@
                             <table class="actividadescargadas table-hover container">
                                 <thead class="text-white" style="background: #ED078B;">
                                     <tr> 
+                                        <th>idActividadEntregada</th>
                                         <th>idActividad</th>
-                                        <th>Nombre Actividad</th>
-                                        <th>Descripcion</th>
+                                        <th>calificacion</th>
                                         <th>Archivo</th>
-                                        <th>Docente ID</th>
-                                        <th>Accion</th>
+                                        <th>Estado</th>
+                                       
                                     </tr>
                                 </thead>
 
@@ -67,43 +62,27 @@
                                               idEstudiante = usu.getNombre();
                                       }
                                         
-                                        ActividadCargadaVO datosVO = new  ActividadCargadaVO();
-                                       EstudianteDAO datosDAO = new EstudianteDAO();
-                                        ArrayList< ActividadCargadaVO> listaActividad = datosDAO.listarActivadesPendientes(idEstudiante);
-                                        if(listaActividad.size() != 0){
-                                        
+                                        ActividadEntregadaVO datosVO = new  ActividadEntregadaVO();
+                                      EstudianteDAO datosDAO = new EstudianteDAO();
+                                        ArrayList<ActividadEntregadaVO> listaActividad = datosDAO.listarActivadesEntregadas(idEstudiante);
                                         for (int i = 0; i < listaActividad.size(); i++) {
                                             datosVO = listaActividad.get(i);
-                                        
-                                        
                                     %>
-                                 
                                     <tr>
-                                        <td><%=datosVO.getActividadCargadaId()%></td>
-                                        <td><%=datosVO.getActividadCargadaNombre()%></td>
-                                        <td><%=datosVO.getActividadCargadaDescripcion()%></td>
+                                        <td><%=datosVO.getActividadEntregadaId()%></td>
+                                        <td><%=datosVO.getIdActividadCargada()%></td>
+                                        <td><%=datosVO.getCalificacion()%></td>
                                         <td>
 
-                                            <a href="<%=datosVO.getRutaArchivo()%>" target="_blank"><img src="img/actividad.png" title="pdf"/></a>
+                                            <a href="<%=datosVO.getActividadEntregadaRuta()%>" target="_blank"><img src="img/actividad.png" title="pdf"/></a>
 
                                         </td>
-                                        <td><%=datosVO.getDocenteId()%></td>
-                                        <td>
-                                            
-                                            <form  method="post" action="Estudiante">
-                                                <input  type="text" name="idActividad" value="<%=datosVO.getActividadCargadaId()%>">
-                                                <input  type="text" name="opcion" value="idActividad">
-                                                <button type="submit" class="btn">Enviar Actividad</button>
-                                            </form>
-                                        </td>
-                                        
+                                        <td><%=datosVO.getActividadEntregadaEstado()%></td>
+                                   
+                                    
                                     </tr>
                                     
-                                       <% }}else{%>
-                                       
-                                <h1>No tiene actividades Pendientes</h1>
-                                <%}%>
-                                
+                                       <% }%>
                                 </tbody>
 
 
@@ -121,8 +100,7 @@
             </div>
 
 
-        </section>                   
-        
-        <%@include file="Componentes/footer.jsp"%>
+        </section>
+        <%@include file="Componentes/footer.jsp" %>
     </body>
 </html>

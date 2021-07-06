@@ -5,14 +5,22 @@
  */
 package controlador;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import modeloDAO.UsuarioDAO;
 import modeloVO.UsuarioVO;
 
@@ -21,6 +29,7 @@ import modeloVO.UsuarioVO;
  * @author Hector
  */
 @WebServlet(name = "Usuario", urlPatterns = {"/Usuario"})
+@MultipartConfig
 public class Usuariocontrolador extends HttpServlet {
 
     /**
@@ -33,15 +42,25 @@ public class Usuariocontrolador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         //Recogemos datos
         int opcion = Integer.parseInt(request.getParameter("opcion"));
-        int usuarioid = Integer.parseInt(request.getParameter("textid"));
-        String usuariologin = request.getParameter("textusuario");
-        String usuarioPassword = request.getParameter("textclave");
+        
+        int usuarioid = 0 ;
+         String usuariologin="";
+        String usuarioPassword="";
+        if(opcion != 3 ){
+         usuarioid = Integer.parseInt(request.getParameter("textid"));
+         usuariologin = request.getParameter("textusuario");
+         usuarioPassword = request.getParameter("textclave");
+       
 
-        //enviamos datos al vo
+      
+        
+        }
+        
+          //enviamos datos al vo
         UsuarioVO usuVO = new UsuarioVO(usuariologin, usuarioPassword, usuarioid);
         
        
@@ -60,20 +79,27 @@ public class Usuariocontrolador extends HttpServlet {
                     UsuarioDAO usuDaO = new UsuarioDAO(); 
                     
                     ArrayList<UsuarioVO> listaUsuario = usuDaO.sesionROl(usuariologin, usuarioPassword);
-                    miSesion.setAttribute("datosUsuario", listaUsuario);
                     
+                     String nombreRol;
+                       nombreRol = listaUsuario.get(0).getNombrerol();
+                       
+                       Integer idrolYu = listaUsuario.get(0).getUsuarioid();
+                       miSesion.setAttribute("datosUsuario", listaUsuario);
+                     
                     
-                    if("administrador" != listaUsuario.get(0).getNombrerol() ){
-                        System.out.print(listaUsuario.get(0).getNombrerol());
+                    if("administrador".equals(nombreRol)){
+                         request.setAttribute("usuario", idrolYu);
+                    
                     request.getRequestDispatcher("administrativo.jsp").forward(request, response);
                     
-                    }else if (listaUsuario.indexOf("estudiante") != -1){
-                        
+                    }else if ( "estudiante".equals(nombreRol)){
+                          request.setAttribute("usuario", idrolYu);
                              request.getRequestDispatcher("estudiante.jsp").forward(request, response);
-                    } else if(listaUsuario.indexOf("docente") != -1){
-                    
-                         request.getRequestDispatcher("docente.jsp").forward(request, response);
+                    } else if("docente".equals(nombreRol)){
+                      request.setAttribute("usuario", idrolYu);
+                         request.getRequestDispatcher("cargar_actividad.jsp").forward(request, response);
                     }else{
+                            request.setAttribute("mensajeError", "Datos incorrectos");
                              request.getRequestDispatcher("login.jsp").forward(request, response);
                     }
                     
@@ -94,7 +120,8 @@ public class Usuariocontrolador extends HttpServlet {
                 //}
                 break;            
             case 2://Agregar Registro
-
+                    
+                    
                 if (usuDAO.agregar()) {
               
 
@@ -117,6 +144,39 @@ public class Usuariocontrolador extends HttpServlet {
                 
                 
                 break;
+              
+            case 3: // cargaMasiva de matriculas
+                
+             Part urlDocumento = request.getPart("urlArchivo");
+            String nombreArchivo = request.getParameter("nombreArchivo");
+            InputStream is = urlDocumento.getInputStream();
+             File arch = new File("/home/daniel/Escritorio/proyectosjava/chinoSena/web/Doc/documentos/Excel/"+nombreArchivo);
+             FileOutputStream out = new FileOutputStream(arch);
+             
+             int dato = is.read();
+             while(dato != -1){
+             
+                 out.write(dato);
+                 dato = is.read();
+             }
+             
+             out.close();
+             is.close();
+                
+              
+            String rutaYnombre =  arch.getAbsolutePath();
+        
+           
+            
+                    if(usuDAO.cargarMatriculas(rutaYnombre)){
+                          request.getRequestDispatcher("listaMatriculas.jsp").forward(request, response);
+                          
+                    }else{
+                         request.setAttribute("mensajeError", "¡El archivo no se almaceno correctamente!");
+                         request.getRequestDispatcher("registrar_matricula.jsp").forward(request, response);
+                    }
+                   
+                break;
             
         }
     }
@@ -133,7 +193,11 @@ public class Usuariocontrolador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuariocontrolador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -147,7 +211,11 @@ public class Usuariocontrolador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuariocontrolador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

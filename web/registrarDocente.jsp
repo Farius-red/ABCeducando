@@ -64,15 +64,7 @@
                              <button class="btnregistrar">Registrar</button>
                         </form>
                     </div>
-                    <div style="color: #007180;">
-                        <%
-                            if (request.getAttribute("mensajeError") != null) {
-                        %>
-                        ${mensajeError}
-                        <%} else {%>
-                        ${mensajeExito}
-                        <%}%>
-                    </div>
+                    <%@include file="Componentes/mensajesRespuesta.jsp" %>
                 </div>
 
                 <div class="col-xl-4">

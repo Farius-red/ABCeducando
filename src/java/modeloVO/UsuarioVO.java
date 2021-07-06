@@ -1,45 +1,55 @@
-
 package modeloVO;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-
-
-
 public class UsuarioVO {
- 
-     private  String usuariologin, usuarioPassword,nombre,apellidos,email,nombrerol,telefono, datostipoid;
-     private Integer usuarioid ,rol;
-     private Date fechaNacimiento;
-     private ArrayList<UsuarioVO>  usuLog= new ArrayList<>();
 
-    public UsuarioVO(String usuariologin, String usuarioPassword , Integer usuarioid) {
+    private String usuariologin, usuarioPassword, nombre, apellidos, email, nombrerol, telefono, datostipoid;
+    private Integer usuarioid, rol;
+    private Date fechaNacimiento;
+    private ArrayList<UsuarioVO> usuLog = new ArrayList<>();
+
+    public UsuarioVO(String usuariologin, String usuarioPassword, Integer usuarioid) {
         this.usuariologin = usuariologin;
         this.usuarioPassword = usuarioPassword;
         this.usuarioid = usuarioid;
     }
 
-    public UsuarioVO(Integer usuarioid,String usuariologin, String nombrerol, Integer rol, String nombre, String apellidos, String email, Date fechaNacimiento, String telefono ) {
-         this.usuarioid = usuarioid;
-         this.usuariologin = usuariologin;
-         this.nombrerol = nombrerol;
-         this.rol = rol;
+    public UsuarioVO(
+            Integer usuarioid,
+            String usuarioPassword,
+            String datostipoid,
+            String nombre,
+            String Apellidos,
+            String email,
+            Date fechaNacimiento
+    ) {
+        this.usuarioid = usuarioid;
+        this.usuarioPassword = usuarioPassword;
+        this.datostipoid = datostipoid;
+        this.nombre = nombre;
+        this.apellidos = Apellidos;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+
+    }
+
+    public UsuarioVO(Integer usuarioid, String usuariologin, String nombrerol, Integer rol, String nombre, String apellidos, String email, Date fechaNacimiento, String telefono) {
+        this.usuarioid = usuarioid;
+        this.usuariologin = usuariologin;
+        this.nombrerol = nombrerol;
+        this.rol = rol;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-       
-        
- 
-    }
 
-   
+    }
 
     public UsuarioVO() {
     }
-    
 
     public UsuarioVO(String usuarioid, String usuariologin, String usuarioPassword) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -141,8 +151,4 @@ public class UsuarioVO {
         this.usuLog = usuLog;
     }
 
-   
-
-    
-    
 }

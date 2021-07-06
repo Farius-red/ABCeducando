@@ -14,6 +14,6 @@ public interface Crud {
     public abstract boolean agregar();
     public abstract boolean listar();
     public abstract boolean actualizar();
-    public abstract boolean eliminar();
+    public abstract boolean eliminar(int id);
     
 }

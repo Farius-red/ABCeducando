@@ -32,6 +32,8 @@ public class DatosPersonalesVO {
         return datosnombres;
     }
 
+    
+
     public void setDatosnombres(String datosnombres) {
         this.datosnombres = datosnombres;
     }

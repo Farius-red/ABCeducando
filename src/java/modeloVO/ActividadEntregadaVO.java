@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modeloVO;
 
-import java.io.InputStream;
+
 
 /**
  *
@@ -13,77 +9,99 @@ import java.io.InputStream;
  */
 public class ActividadEntregadaVO {
     
-    private String  actividadentregadanombre, actividadentregadadescripcion, actividadentregadaestado;
-            int actividadentregadaid, Estudianteid; 
-            InputStream actividadentregadaarchivo;
-            private byte[] actividadentregadaarchivo2;
+   
+    private int  ActividadEntregadaId,  idActividadCargada, calificacion;
+    private String  ActividadEntregadaRuta,EstudianteId, ActividadEntregadaEstado;
 
     public ActividadEntregadaVO() {
     }
 
-    public ActividadEntregadaVO(String actividadentregadanombre, String actividadentregadadescripcion, String actividadentregadaestado, int actividadentregadaid, int Estudianteid, byte[] actividadentregadaarchivo2) {
-        this.actividadentregadanombre = actividadentregadanombre;
-        this.actividadentregadadescripcion = actividadentregadadescripcion;
-        this.actividadentregadaestado = actividadentregadaestado;
-        this.actividadentregadaid = actividadentregadaid;
-        this.Estudianteid = Estudianteid;
-        this.actividadentregadaarchivo2 = actividadentregadaarchivo2;
+    public ActividadEntregadaVO(int idActividadCargada) {
+        this.idActividadCargada = idActividadCargada;
+    }
+    
+    
+    
+
+    public ActividadEntregadaVO(String EstudianteId,int idActividadCargada, String ActividadEntregadaRuta ) {
+        this.EstudianteId = EstudianteId;
+        this.idActividadCargada = idActividadCargada;
+        this.ActividadEntregadaRuta = ActividadEntregadaRuta;
+        
+    }
+public ActividadEntregadaVO(int ActividadEntregadaId,  int idActividadCargada, int calificacion, String ActividadEntregadaRuta, String ActividadEntregadaEstado) {
+        this.ActividadEntregadaId = ActividadEntregadaId;
+        
+        this.idActividadCargada = idActividadCargada;
+        this.calificacion = calificacion;
+        this.ActividadEntregadaRuta = ActividadEntregadaRuta;
+        this.ActividadEntregadaEstado = ActividadEntregadaEstado;
+    }
+    
+    public ActividadEntregadaVO(int ActividadEntregadaId,  int idActividadCargada, int calificacion,  String ActividadEntregadaEstado) {
+        this.ActividadEntregadaId = ActividadEntregadaId;
+        this.idActividadCargada = idActividadCargada;
+        this.calificacion = calificacion;
+       this.ActividadEntregadaEstado = ActividadEntregadaEstado;
     }
 
-    public String getActividadentregadanombre() {
-        return actividadentregadanombre;
+    public ActividadEntregadaVO(int ActividadEntregadaId, String EstudianteId, int idActividadCargada, int calificacion, String ActividadEntregadaRuta, String ActividadEntregadaEstado) {
+        this.ActividadEntregadaId = ActividadEntregadaId;
+        this.EstudianteId = EstudianteId;
+        this.idActividadCargada = idActividadCargada;
+        this.calificacion = calificacion;
+        this.ActividadEntregadaRuta = ActividadEntregadaRuta;
+        this.ActividadEntregadaEstado = ActividadEntregadaEstado;
     }
 
-    public void setActividadentregadanombre(String actividadentregadanombre) {
-        this.actividadentregadanombre = actividadentregadanombre;
+  
+    public int getActividadEntregadaId() {
+        return ActividadEntregadaId;
     }
 
-    public String getActividadentregadadescripcion() {
-        return actividadentregadadescripcion;
+    public void setActividadEntregadaId(int ActividadEntregadaId) {
+        this.ActividadEntregadaId = ActividadEntregadaId;
     }
 
-    public void setActividadentregadadescripcion(String actividadentregadadescripcion) {
-        this.actividadentregadadescripcion = actividadentregadadescripcion;
+    public String getEstudianteId() {
+        return EstudianteId;
     }
 
-    public String getActividadentregadaestado() {
-        return actividadentregadaestado;
+    public void setEstudianteId(String EstudianteId) {
+        this.EstudianteId = EstudianteId;
     }
 
-    public void setActividadentregadaestado(String actividadentregadaestado) {
-        this.actividadentregadaestado = actividadentregadaestado;
+    public int getIdActividadCargada() {
+        return idActividadCargada;
     }
 
-    public int getActividadentregadaid() {
-        return actividadentregadaid;
+    public void setIdActividadCargada(int idActividadCargada) {
+        this.idActividadCargada = idActividadCargada;
     }
 
-    public void setActividadentregadaid(int actividadentregadaid) {
-        this.actividadentregadaid = actividadentregadaid;
+    public int getCalificacion() {
+        return calificacion;
     }
 
-    public int getEstudianteid() {
-        return Estudianteid;
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
 
-    public void setEstudianteid(int Estudianteid) {
-        this.Estudianteid = Estudianteid;
+    public String getActividadEntregadaRuta() {
+        return ActividadEntregadaRuta;
     }
 
-    public InputStream getActividadentregadaarchivo() {
-        return actividadentregadaarchivo;
+    public void setActividadEntregadaRuta(String ActividadEntregadaRuta) {
+        this.ActividadEntregadaRuta = ActividadEntregadaRuta;
     }
 
-    public void setActividadentregadaarchivo(InputStream actividadentregadaarchivo) {
-        this.actividadentregadaarchivo = actividadentregadaarchivo;
+    public String getActividadEntregadaEstado() {
+        return ActividadEntregadaEstado;
     }
 
-    public byte[] getActividadentregadaarchivo2() {
-        return actividadentregadaarchivo2;
+    public void setActividadEntregadaEstado(String ActividadEntregadaEstado) {
+        this.ActividadEntregadaEstado = ActividadEntregadaEstado;
     }
-
-    public void setActividadentregadaarchivo2(byte[] actividadentregadaarchivo2) {
-        this.actividadentregadaarchivo2 = actividadentregadaarchivo2;
-    }
+    
     
 }

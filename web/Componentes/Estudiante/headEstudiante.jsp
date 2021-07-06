@@ -1,5 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>  
-<header>
+    <header>
+            <!-- Header Start -->
             <div class="header-area">
                 <div class="main-header ">
                     <div class="header-top d-none d-sm-block">
@@ -9,8 +9,8 @@
                                     <div class="d-flex justify-content-between flex-wrap align-items-center">
                                         <div class="header-info-left">
                                             <ul>     
-                                                <li><i class="fas fa-map-marker-alt"></i> 57/A, Green Lane, NYC</li>
-                                                <li><i class="fas fa-phone-alt"></i> +10 (78) 367 3692</li>
+                                                <li><i class="fas fa-map-marker-alt"></i>Bogota Colombia</li>
+                                                <li><i class="fas fa-phone-alt"></i> +031 367 3692</li>
                                             </ul>
                                         </div>
                                         <div class="header-info-right">
@@ -39,45 +39,29 @@
                                     <!-- Main-menu -->
                                     <div class="main-menu f-right d-none d-lg-block">
                                         <nav> 
-                                            <ul id="navigation">   
-                                                   <ul class="submenu">
-                                                       <li><p></p>
-                                                       <li>
-                                                           <jsp:include page="Componentes/cerrarSesion.jsp" flush="true"/>
-                                                       </li>
-                                                    </ul>
-                                                <a href="administrativo.jsp"><h1>Administrativo</h1></a>
-                                                <li><a href="#">Matriculas</a>
+                                            <ul id="navigation">    
+                                                <h1>Estudiante</h1>
+                                                <h1></h1>
+                                                <li><a href="index.html"></a></li>
+                                                <li><a href="#">Actividades</a>
                                                     <ul class="submenu">
-                                                        <li><a href="registrar_matricula.jsp">Registrar matricula</a></li>
-                                                        <li><a href="listaMatriculas.jsp">Ver matriculas</a></li>
+                                                        <li><a href="entregar_actividad.jsp">Entregar actividades</a></li>
+                                                        <li><a href="Actividades_pendientes_estudiante.jsp">Actividades pendientes</a></li>
+                                                        <li><a href="activi_entregadas_estudiante.jsp">Actividades entregadas</a></li>
+
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Docente</a>
+                                                <li><a href="#">Notas</a>
                                                     <ul class="submenu">
-                                                        <li><a href="registrarDocente.jsp">Registrar docente</a></li>
-                                                        <li><a href="listardocentes.jsp">Ver docentes</a></li>
+                                                        <li><a href="notasEstudiante.jsp">Ver notas</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Estudiante</a>
+                                                <li><a href="#">Cerrar Sesión</a>
                                                     <ul class="submenu">
-                                                        <li><a href="registrarDocente.jsp">Registrar estudiantes</a></li>
-                                                        <li><a href="listarEstudiantes.jsp">Ver estudiantes</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Mensajes</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="crearmensaje.jsp">Crear y listar mensajes</a></li>
+                                                         <%@include file="../cerrarSesion.jsp" %>
                                                         
                                                     </ul>
                                                 </li>    
-                                                
-                                                 <li><a href="#">Cerrar Sesion</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="login.jsp">Cerrar Sesion</a></li>
-                                                       
-                                                    </ul>
-                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -93,7 +77,3 @@
             </div>
             <!-- Header End -->
         </header>
-                                                       
-                                                       
-                                                       
-                                                       
