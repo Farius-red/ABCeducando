@@ -109,8 +109,7 @@ public class EstudianteDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT ActividadEntregadaId,idActividadCargada,Calificacion,ActividadEntregadaRuta,ActividadEntregadaEstado FROM ActividadEntregada, ActividadCargada\n" +
-                        "where  ActividadEntregada.EstudianteId = ?";
+            sql = "SELECT ActividadEntregadaId,idActividadCargada,Calificacion,ActividadEntregadaRuta,ActividadEntregadaEstado FROM ActividadEntregada where ActividadEntregada.EstudianteId =?";
             puente = conexion.prepareStatement(sql);
             puente.setString(1, idEstudiante);
               mensajero = puente.executeQuery();
@@ -226,16 +225,15 @@ public class EstudianteDAO extends Conexion implements Crud {
                 idActividadCargada = listaActi.get(i).getActividadCargadaId();
 
      
+               comparacion = listaEntrega.indexOf(idActividadCargada) ;
 
-                for (int j = 0; j < listaEntrega.size(); j++) {
-                   comparacion = listaEntrega.get(j).getIdActividadCargada();
-                    
-                }
-                    
-                if(comparacion != idActividadCargada){
+                     if(comparacion == -1){
                   pendientes.add(listaActi.get(i));
                 }
+                
             }
+            
+           
 
         } catch (SQLException e) {
             Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -260,7 +258,7 @@ public class EstudianteDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada, ActividadCargada\n"
+            sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada"
                     + "where  ActividadCargada.DocenteId = ?";
             puente = conexion.prepareStatement(sql);
             puente.setInt(1, idDocente);

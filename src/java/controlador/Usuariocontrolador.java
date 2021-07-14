@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import modeloDAO.DatosPersonalesDAO;
 import modeloDAO.UsuarioDAO;
+import modeloVO.DatosPersonalesVO;
 import modeloVO.UsuarioVO;
 
 /**
@@ -50,7 +52,7 @@ public class Usuariocontrolador extends HttpServlet {
         int usuarioid = 0 ;
          String usuariologin="";
         String usuarioPassword="";
-        if(opcion != 3 ){
+        if(opcion != 3 && opcion != 4){
          usuarioid = Integer.parseInt(request.getParameter("textid"));
          usuariologin = request.getParameter("textusuario");
          usuarioPassword = request.getParameter("textclave");
@@ -176,6 +178,33 @@ public class Usuariocontrolador extends HttpServlet {
                          request.getRequestDispatcher("registrar_matricula.jsp").forward(request, response);
                     }
                    
+                break;
+                case 4:
+                      String datosnombres = request.getParameter("textnombres");
+        String datosapellidos = request.getParameter("textapellidos");
+        String datostipoid = request.getParameter("texttipoid");
+        int idDatos = Integer.parseInt(request.getParameter("textnumeroid"));
+        String datostelefono = request.getParameter("texttelefono");
+        String datosemail = request.getParameter("textemail");
+        String datosfechanac = request.getParameter("textfechanacimiento");
+
+        DatosPersonalesVO datosVO = new DatosPersonalesVO(datosnombres, datosapellidos,
+                datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+
+        DatosPersonalesDAO datosDAO = new DatosPersonalesDAO(datosVO);
+                if (datosDAO.agregar()) {
+
+                    request.setAttribute("mensajeExito", "Se registro"
+                            + "correctamente");
+                     request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+                } else {
+
+                    request.setAttribute("mensajeError", "No se registro correctamente");
+                    request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+                    
+                }
+             
+
                 break;
             
         }

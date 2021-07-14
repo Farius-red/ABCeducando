@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +22,7 @@ import modeloDAO.EstudianteDAO;
 
 import modeloVO.ActividadEntregadaVO;
 
-/**
- *
- * @author daniel
- */
+@MultipartConfig
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteControlador extends HttpServlet {
 
@@ -40,8 +38,8 @@ public class EstudianteControlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String opcion = request.getParameter("opcion");
-        
+      String opcion;        
+        opcion = request.getParameter("opcion");
 
 
         

@@ -42,9 +42,16 @@
 
                       
 
-                        <form name="formpdf" action="Estudiante" method="post" enctype="multipart/form-data">                                
+                        <form name="formpdf" action="Estudiante" method="post" enctype="multipart/form-data">       
+                                <%@include file="Componentes/java/inputIdUsuario.jsp" %>     
                             
-                            <% int id =(int)request.getAttribute("idActividad");%>
+                            <% 
+                                int id = 0;
+                                    if(request.getAttribute("idActividad")!= null){
+                                    
+                                         id =(int)request.getAttribute("idActividad");
+                                    }
+                                    ;%>
                               
 
                               
@@ -58,12 +65,12 @@
                                                                          <input type="text" name="idActividad" value="<%=id%>" required>
                                                <label for="id">Seleccionar PDF: *</label>                                     
                                 <input type="file" name="urlArchivo"  accept="application/pdf" class="btn1" required/><br><br>
-                                
-                                 <input value="registrar" name="opcion" type="hidden"/>
+                                    <input value="registrar" name="opcion" type="hidden">
+                                 
                                 <input type="submit" value="Enviar Archivo"  id="btn" class="btn"/>
-                                <%@include file="Componentes/java/inputIdUsuario.jsp" %>       
+                              
                                          
-                                
+                            
                                      
                                   
                              

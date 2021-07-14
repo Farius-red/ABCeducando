@@ -1,9 +1,11 @@
 
+<%@page import="modeloDAO.UsuarioDAO"%>
 <%@page import="modeloDAO.EstudianteDAO"%>
 <%@page import="modeloVO.ActividadEntregadaVO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="modeloDAO.UsuarioDAO"%>
 <%@page import="modeloVO.UsuarioVO"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Componentes/Sessiones.jsp" %>
 <%@include file="Componentes/datosUsuarioSesion.jsp" %>
@@ -56,15 +58,16 @@
                                     UsuarioDAO usudao = new UsuarioDAO();
                                     miSesion.getAttribute("datosUsuario");
                                     ArrayList<UsuarioVO> datosU = (ArrayList<UsuarioVO>)  miSesion.getAttribute("datosUsuario");
-                                    
+                                     if(datosU.size() != 0){
                                       for (int i = 0; i < datosU.size(); i++) {
                                               usu = datosU.get(i);
                                               idEstudiante = usu.getNombre();
                                       }
-                                        
+                                     }
                                         ActividadEntregadaVO datosVO = new  ActividadEntregadaVO();
                                       EstudianteDAO datosDAO = new EstudianteDAO();
                                         ArrayList<ActividadEntregadaVO> listaActividad = datosDAO.listarActivadesEntregadas(idEstudiante);
+                                         if(listaActividad.size() != 0){
                                         for (int i = 0; i < listaActividad.size(); i++) {
                                             datosVO = listaActividad.get(i);
                                     %>
@@ -82,7 +85,7 @@
                                     
                                     </tr>
                                     
-                                       <% }%>
+                                       <% }}%>
                                 </tbody>
 
 

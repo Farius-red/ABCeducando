@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-xl-4">
                     <div class="datospersonales">
-                        <form method="post" action="Docente">
+                        <form method="post" action="Usuario">
                             <h1>Datos Personales</h1><br>
                             <h2><label>Nombres</label><br></h2>
                             <input type="text" placeholder="" name="textnombres"><br><br>
@@ -60,7 +60,7 @@
                             <h2><label>Fecha de nacimiento</label><br></h2>
                             <input type="date" placeholder="" name="textfechanacimiento"><br><br>
                            
-                            <input type="hidden" value="1" name="opcion">
+                            <input type="hidden" value="4" name="opcion">
                              <button class="btnregistrar">Registrar</button>
                         </form>
                     </div>
