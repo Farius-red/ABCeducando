@@ -87,7 +87,7 @@
                                                 <input type="hidden" name="urlArchivo" value="<%=datosVO.getRutaArchivo()%>"/>
                                                 <input id="metodo" name="opcion" type="hidden" value="eliminar"/>
                                                 
-                                            <button onclick="crud('eliminar')"> <img src="img/delete1.png" title="Eliminar"/></button>
+                                            <button type="submit"> <img src="img/delete1.png" title="Eliminar"/></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -111,5 +111,5 @@
         </section>
                                         <%@include file="Componentes/footer.jsp" %>
     </body>
-    <script src="assets/js/crud/crud.js" type="text/javascript"></script>
+    
 </html>

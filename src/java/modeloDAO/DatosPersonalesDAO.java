@@ -27,7 +27,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
     private ResultSet mensajero;
 
     public boolean operacion = false;
-    public String sql;
+    public String sql,sql2;
 
     private String datosnombres = "", datosapellidos = "", datostipoid = "", 
             datostelefono = "", datosemail = "", datosfechanac = "";
@@ -173,12 +173,79 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
 
     @Override
     public boolean actualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try {
+            sql = "UPDATE DatosUsuario SET datostipoid=?,nombre=?,apellidos=?,telefono=?,email=? WHERE DatosUsuario.idDatos = ?";
+             
+                    
+                    
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, datostipoid);
+           
+            puente.setString(2, datosnombres);
+            puente.setString(3, datosapellidos);
+            puente.setString(4, datostelefono);
+            puente.setString(5, datosemail);
+         
+            puente.setInt(6, idDatos);
+            puente.executeUpdate();
+            operacion = true;
+
+        } catch (Exception e) {
+            Logger.getLogger(DatosPersonalesDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            try {
+                this.cerrarConexion();
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+        }
+        return operacion;
     }
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+              try {
+                  
+                  
+                  
+            conexion = this.obtenerConexion();
+            
+             sql2 = "DELETE FROM rolYu where id_rolYu =" + id;
+            puente = conexion.prepareStatement(sql2);
+            puente.executeUpdate();
+            
+            
+            
+            
+           
+            
+            sql2 = "DELETE FROM usuarios where usuarioid =" + id;
+            puente = conexion.prepareStatement(sql2);
+            puente.executeUpdate();
+
+            sql = "DELETE FROM DatosUsuario where idDatos =" + id;
+
+            puente = conexion.prepareStatement(sql);
+            puente.executeUpdate();
+            
+            operacion = true;
+            
+        } catch (Exception e) {
+            Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+
+            try {
+                this.cerrarConexion();
+            } catch (SQLException e) {
+                Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        }
+
+        return operacion;
     }
+    
 
 }

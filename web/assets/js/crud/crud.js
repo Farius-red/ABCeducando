@@ -5,7 +5,7 @@
     if (document.getElementById('metodo').value === '') {
         alert('el value del input esta vacio');
     } else {
-        alert('envio correcto');
+        
         formulario.submit();
     }
 

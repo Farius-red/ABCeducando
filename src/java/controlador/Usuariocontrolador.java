@@ -48,71 +48,80 @@ public class Usuariocontrolador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Recogemos datos
         int opcion = Integer.parseInt(request.getParameter("opcion"));
-        
-        int usuarioid = 0 ;
-         String usuariologin="";
-        String usuarioPassword="";
-        if(opcion != 3 && opcion != 4){
-         usuarioid = Integer.parseInt(request.getParameter("textid"));
-         usuariologin = request.getParameter("textusuario");
-         usuarioPassword = request.getParameter("textclave");
-       
 
-      
-        
+        String datosnombres = "";
+        String datosapellidos = "";
+        String datostipoid = "";
+        int idDatos = 0;
+        String datostelefono = "";
+        String datosemail = "";
+        String datosfechanac = "";
+
+        int usuarioid = 0;
+
+        String usuariologin = "";
+        String usuarioPassword = "";
+
+        if (opcion == 1) {
+            usuarioid = Integer.parseInt(request.getParameter("textid"));
+            usuariologin = request.getParameter("textusuario");
+            usuarioPassword = request.getParameter("textclave");
+
+        } else if (opcion == 4 || opcion == 6 || opcion == 7) {
+
+            datosnombres = request.getParameter("textnombres");
+            datosapellidos = request.getParameter("textapellidos");
+
+            idDatos = Integer.parseInt(request.getParameter("textnumeroid"));
+            datostelefono = request.getParameter("texttelefono");
+            datosemail = request.getParameter("textemail");
+
         }
-        
-          //enviamos datos al vo
+
+        //enviamos datos al vo
         UsuarioVO usuVO = new UsuarioVO(usuariologin, usuarioPassword, usuarioid);
-        
-       
-     
+
         //Llamar al DAO y mandarlo los datos del VO
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
-        HttpSession miSesion = null; 
+        HttpSession miSesion = null;
         switch (opcion) {
-            
+
             case 1://Iniciar Sesion
 
                 if (usuDAO.iniciarSesion(usuariologin, usuarioPassword)) {
-                    
-                   miSesion = request.getSession(true);
-                  
-                    UsuarioDAO usuDaO = new UsuarioDAO(); 
-                    
-                    ArrayList<UsuarioVO> listaUsuario = usuDaO.sesionROl(usuariologin, usuarioPassword);
-                    
-                     String nombreRol;
-                       nombreRol = listaUsuario.get(0).getNombrerol();
-                       
-                       Integer idrolYu = listaUsuario.get(0).getUsuarioid();
-                       miSesion.setAttribute("datosUsuario", listaUsuario);
-                     
-                    
-                    if("administrador".equals(nombreRol)){
-                         request.setAttribute("usuario", idrolYu);
-                    
-                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
-                    
-                    }else if ( "estudiante".equals(nombreRol)){
-                          request.setAttribute("usuario", idrolYu);
-                             request.getRequestDispatcher("estudiante.jsp").forward(request, response);
-                    } else if("docente".equals(nombreRol)){
-                      request.setAttribute("usuario", idrolYu);
-                         request.getRequestDispatcher("cargar_actividad.jsp").forward(request, response);
-                    }else{
-                            request.setAttribute("mensajeError", "Datos incorrectos");
-                             request.getRequestDispatcher("login.jsp").forward(request, response);
-                    }
-                    
-                    
-                  
 
-                                   
+                    miSesion = request.getSession(true);
+
+                    UsuarioDAO usuDaO = new UsuarioDAO();
+
+                    ArrayList<UsuarioVO> listaUsuario = usuDaO.sesionROl(usuariologin, usuarioPassword);
+
+                    String nombreRol;
+                    nombreRol = listaUsuario.get(0).getNombrerol();
+
+                    Integer idrolYu = listaUsuario.get(0).getUsuarioid();
+                    miSesion.setAttribute("datosUsuario", listaUsuario);
+
+                    if ("administrador".equals(nombreRol)) {
+                        request.setAttribute("usuario", idrolYu);
+
+                        request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+
+                    } else if ("estudiante".equals(nombreRol)) {
+                        request.setAttribute("usuario", idrolYu);
+                        request.getRequestDispatcher("estudiante.jsp").forward(request, response);
+                    } else if ("docente".equals(nombreRol)) {
+                        request.setAttribute("usuario", idrolYu);
+                        request.getRequestDispatcher("cargar_actividad.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("mensajeError", "Datos incorrectos");
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                    }
+
                 } else {
-                    
+
                     request.setAttribute("mensajeError", "Datos incorrectos");
-                     request.getRequestDispatcher("login.jsp").forward(request, response);
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
 
                 //} 
@@ -120,93 +129,123 @@ public class Usuariocontrolador extends HttpServlet {
                 //    request.setAttribute("mensajeError", "Datos incorrectos");
                 //  request.getRequestDispatcher("login.jsp").forward(request, response);
                 //}
-                break;            
+                break;
             case 2://Agregar Registro
-                    
-                    
+
                 if (usuDAO.agregar()) {
-              
 
                     request.setAttribute("mensajeExito", "¡El usuario se registro correctamente!");
-                   if(miSesion == request.getSession() ){
-                       request.getRequestDispatcher("login.jsp").forward(request, response);
-                       
-                   }else{
-                       request.getRequestDispatcher("fechaingresoDocente.jsp").forward(request, response);
-    
-                 
-                   }
-                    
-                } else {
-                    
-                    request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
-                    
-                }
-                
-                
-                
-                break;
-              
-            case 3: // cargaMasiva de matriculas
-                
-             Part urlDocumento = request.getPart("urlArchivo");
-            String nombreArchivo = request.getParameter("nombreArchivo");
-            InputStream is = urlDocumento.getInputStream();
-             File arch = new File("/home/daniel/Escritorio/proyectosjava/chinoSena/web/Doc/documentos/Excel/"+nombreArchivo);
-             FileOutputStream out = new FileOutputStream(arch);
-             
-             int dato = is.read();
-             while(dato != -1){
-             
-                 out.write(dato);
-                 dato = is.read();
-             }
-             
-             out.close();
-             is.close();
-                
-              
-            String rutaYnombre =  arch.getAbsolutePath();
-        
-           
-            
-                    if(usuDAO.cargarMatriculas(rutaYnombre)){
-                          request.getRequestDispatcher("listaMatriculas.jsp").forward(request, response);
-                          
-                    }else{
-                         request.setAttribute("mensajeError", "¡El archivo no se almaceno correctamente!");
-                         request.getRequestDispatcher("registrar_matricula.jsp").forward(request, response);
+                    if (miSesion == request.getSession()) {
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+
+                    } else {
+                        request.getRequestDispatcher("fechaingresoDocente.jsp").forward(request, response);
+
                     }
-                   
+
+                } else {
+
+                    request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
+
+                }
+
                 break;
-                case 4:
-                      String datosnombres = request.getParameter("textnombres");
-        String datosapellidos = request.getParameter("textapellidos");
-        String datostipoid = request.getParameter("texttipoid");
-        int idDatos = Integer.parseInt(request.getParameter("textnumeroid"));
-        String datostelefono = request.getParameter("texttelefono");
-        String datosemail = request.getParameter("textemail");
-        String datosfechanac = request.getParameter("textfechanacimiento");
 
-        DatosPersonalesVO datosVO = new DatosPersonalesVO(datosnombres, datosapellidos,
-                datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+            case 3: // cargaMasiva de matriculas
 
-        DatosPersonalesDAO datosDAO = new DatosPersonalesDAO(datosVO);
+                Part urlDocumento = request.getPart("urlArchivo");
+                String nombreArchivo = request.getParameter("nombreArchivo");
+                InputStream is = urlDocumento.getInputStream();
+                File arch = new File("/home/daniel/Escritorio/proyectosjava/chinoSena/web/Doc/documentos/Excel/" + nombreArchivo);
+                FileOutputStream out = new FileOutputStream(arch);
+
+                int dato = is.read();
+                while (dato != -1) {
+
+                    out.write(dato);
+                    dato = is.read();
+                }
+
+                out.close();
+                is.close();
+
+                String rutaYnombre = arch.getAbsolutePath();
+
+                if (usuDAO.cargarMatriculas(rutaYnombre)) {
+                    request.getRequestDispatcher("listaMatriculas.jsp").forward(request, response);
+
+                } else {
+                    request.setAttribute("mensajeError", "¡El archivo no se almaceno correctamente!");
+                    request.getRequestDispatcher("registrar_matricula.jsp").forward(request, response);
+                }
+
+                break;
+            case 4: // registrar Nuevos usuarios
+
+                datosfechanac = request.getParameter("textfechanacimiento");
+                datostipoid = request.getParameter("texttipoid");
+
+                DatosPersonalesVO datosVO = new DatosPersonalesVO(datosnombres, datosapellidos,
+                        datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+
+                DatosPersonalesDAO datosDAO = new DatosPersonalesDAO(datosVO);
                 if (datosDAO.agregar()) {
 
                     request.setAttribute("mensajeExito", "Se registro"
                             + "correctamente");
-                     request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+                    request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
                 } else {
 
                     request.setAttribute("mensajeError", "No se registro correctamente");
                     request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
-                    
+
                 }
-             
 
                 break;
-            
+
+            case 5: //Eliminar usuario
+
+                int iddatos = Integer.parseInt(request.getParameter("idUsuario"));
+                DatosPersonalesDAO datos = new DatosPersonalesDAO();
+                if (datos.eliminar(iddatos)) {
+                    request.setAttribute("mensajeExito", "Se Elimino usuario "
+                            + "correctamente con numero de documento\n" + iddatos);
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+
+                } else {
+                    request.setAttribute("mensajeError", "No se Elimino  correctamente el usuario");
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                }
+                break;
+            case 6: // redirigir con datos a vista actualizar 
+
+                request.setAttribute("idDatos", idDatos);
+                request.setAttribute("datosnombres", datosnombres);
+                request.setAttribute("datosapellidos", datosapellidos);
+                request.setAttribute("datostelefono", datostelefono);
+                request.setAttribute("datosemail", datosemail);
+                request.getRequestDispatcher("actualizarUsuarios.jsp").forward(request, response);
+                break;
+
+            case 7: // actualizar 
+                datostipoid = request.getParameter("texttipoid");
+                DatosPersonalesVO datoVO = new DatosPersonalesVO(datosnombres, datosapellidos,
+                        datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+
+                DatosPersonalesDAO datoDAO = new DatosPersonalesDAO(datoVO);
+
+                if (datoDAO.actualizar()) {
+                    request.setAttribute("mensajeExito", "Se Actualizo el usuario "
+                            + "correctamente con numero de documento\n" + idDatos);
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+
+                } else {
+                    request.setAttribute("mensajeError", "No se actualizo  correctamente el usuario");
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                }
+
+                break;
+
         }
     }
 

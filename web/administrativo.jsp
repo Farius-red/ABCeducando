@@ -25,15 +25,12 @@
 
                 <div class="col-xl-12">
                     <div class="registrodocente">
-                        <h1></h1>
+                        <%@include file="Componentes/mensajesRespuesta.jsp" %>
                     </div>
                 </div>
 
             </div>
-            <div class="row">
-                               
-            </div>
-
+            
 
         </section>
         <jsp:include page="Componentes/footer.jsp" flush="true"></jsp:include>
