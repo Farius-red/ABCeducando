@@ -51,9 +51,7 @@ public class UsuarioVO {
     public UsuarioVO() {
     }
 
-    public UsuarioVO(String usuarioid, String usuariologin, String usuarioPassword) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     public String getUsuariologin() {
         return usuariologin;

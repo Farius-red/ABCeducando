@@ -33,6 +33,7 @@
                                         <th>Apellido</th>
                                         <th>Telefono</th>
                                         <th>Email</th> 
+                                        <th>EPS</th> 
                                         <th>Acciones</th>
                                     </tr>
                                     </thead>
@@ -54,6 +55,7 @@
                                         <td><%=datosVO.getDatosapellidos()%></td>
                                         <td><%=datosVO.getDatostelefono()%></td>
                                         <td><%=datosVO.getDatosemail()%></td>
+                                          <td><%=datosVO.getEps()%></td>
                                          <td>
                                             <form id="crudForm"  action="Usuario" method="post">
                                                 

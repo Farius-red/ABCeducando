@@ -47,7 +47,17 @@
                                     <option value="Registro civil">RC</option>
                                     <option value="Tarjeta de identidad">TI</option>
                                     <option value="Cedula de ciudadania">CC</option>
-                                </select><br><br>
+                                </select>
+                               <h2><label>EPS</label><br></h2>
+                             <select class="tipodoc" name="eps">
+                                    <option>Seleccione...Eps</option>
+                                    <option value="sanitas">Sanitas</option>
+                                    <option value="compensar">Compensar</option>
+                                    <option value="Salud Total"> Salud Total</option>
+                                </select>
+                               
+                            
+                            <br><br>
                                 
                                
                             <!--<input type="text" placeholder="" name="texttipoid"><br><br>-->

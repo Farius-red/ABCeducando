@@ -5,6 +5,7 @@
  */
 package modeloDAO;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,6 +17,10 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modeloVO.UsuarioVO;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import util.Conexion;
 import util.Crud;
 import util.Excel;
@@ -143,18 +148,47 @@ public class UsuarioDAO extends Conexion implements Crud {
     public boolean cargarMatriculas(String urlDocumento) throws IOException, SQLException {
 
         Excel excel = new Excel();
-
+  UsuarioVO usuvo = new UsuarioVO();
+  ArrayList <UsuarioVO>cargarMatricula = new ArrayList<>();
         try {
             
-            UsuarioVO usuvo = new UsuarioVO();
-            ArrayList<UsuarioVO> cargarMatricula = excel.cargarMatricula(urlDocumento);
+               FileInputStream archivo = new FileInputStream(urlDocumento);
+        XSSFWorkbook libro = new XSSFWorkbook(archivo);
+        XSSFSheet hoja = libro.getSheetAt(0);
+        
+        
+        int numero_filas = hoja.getLastRowNum();
+       for (int i = 0; i <= numero_filas; i++) {
+
+                Row fila = hoja.getRow(i);
+                consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellido,telefono,email,fechaNacimiento) values(?,?,?,?,?,?)";
+                puente = conexion.prepareStatement(consul);
+                double cellu = fila.getCell(0).getNumericCellValue();
+                int idu = (int) cellu;
+                puente.setInt(1, idu);
+                puente.setString(2, fila.getCell(2).getStringCellValue());
+                puente.setString(3,fila.getCell(3).getStringCellValue());
+                puente.setString(4, fila.getCell(4).getStringCellValue());
+                  double tel = fila.getCell(5).getNumericCellValue();
+                  int tele = (int) tel;
+                  String telefono = String.valueOf(tele);
+                puente.setString(5, telefono);
+                puente.setString(6, fila.getCell(6).getStringCellValue());
+            
+                
+                
+                puente.executeUpdate();
+            }
+           
+           
             
             
+     
             // si la lista que trae de el metodo de carga de matriculas tiene datos 
             // los itera y los inserta en la base de datos
             if(!cargarMatricula.isEmpty()){
            for (int i = 0; i < cargarMatricula.size(); i++) {
-                usuvo= cargarMatricula.get(i);
+                usuvo= (UsuarioVO) cargarMatricula.get(i);
             
                 
                 consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellido,telefono,email,fechaNacimiento) values(?,?,?,?,?,?,?)";
@@ -217,12 +251,12 @@ public class UsuarioDAO extends Conexion implements Crud {
     public boolean agregar() {
 
         try {
-            sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword) values(?,?,?)";
+            sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword,datosUsuarioID) values(?,?,?,?)";
             puente = conexion.prepareStatement(sql);
             puente.setInt(1, usuarioid);
             puente.setString(2, usuariologin);
             puente.setString(3, usuarioPassword);
-
+             puente.setInt(4, usuarioid);
             puente.executeUpdate();
             operacion = true;
 

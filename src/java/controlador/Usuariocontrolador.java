@@ -130,21 +130,31 @@ public class Usuariocontrolador extends HttpServlet {
                 //  request.getRequestDispatcher("login.jsp").forward(request, response);
                 //}
                 break;
-            case 2://Agregar Registro
-
-                if (usuDAO.agregar()) {
+            case 2://Agregar datos Tabla usurios
+                     
+                
+                datosemail = request.getParameter("email");
+               String clave = request.getParameter("clave");
+                idDatos = Integer.parseInt(request.getParameter("textnumeroid"));
+                 UsuarioVO usuV = new UsuarioVO(datosemail, clave, idDatos);
+                UsuarioDAO  usuarioD = new UsuarioDAO(usuV);
+                
+                if (usuarioD.agregar()) {
 
                     request.setAttribute("mensajeExito", "¡El usuario se registro correctamente!");
+                    
                     if (miSesion == request.getSession()) {
                         request.getRequestDispatcher("login.jsp").forward(request, response);
 
                     } else {
+                        
+                        request.setAttribute("idDatos",idDatos);
                         request.getRequestDispatcher("fechaingresoDocente.jsp").forward(request, response);
 
                     }
 
                 } else {
-
+                    request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
                     request.setAttribute("mensajeError", "¡El usuario no se registro correctamente!");
 
                 }
@@ -180,24 +190,28 @@ public class Usuariocontrolador extends HttpServlet {
                 }
 
                 break;
-            case 4: // registrar Nuevos usuarios
+            case 4: // registrar tabla datosusuarios
 
                 datosfechanac = request.getParameter("textfechanacimiento");
-                datostipoid = request.getParameter("texttipoid");
+          datostipoid = request.getParameter("texttipoid");
+               String eps = request.getParameter("eps");
 
                 DatosPersonalesVO datosVO = new DatosPersonalesVO(datosnombres, datosapellidos,
-                        datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+                        datostipoid, idDatos, datostelefono, datosemail, datosfechanac,eps);
 
                 DatosPersonalesDAO datosDAO = new DatosPersonalesDAO(datosVO);
                 if (datosDAO.agregar()) {
-
+                      
                     request.setAttribute("mensajeExito", "Se registro"
                             + "correctamente");
+                    
+                      request.setAttribute("idDatos", idDatos);
+                      request.setAttribute("email", datosemail);
                     request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
                 } else {
 
                     request.setAttribute("mensajeError", "No se registro correctamente");
-                    request.getRequestDispatcher("crear_usuario.jsp").forward(request, response);
+                    request.getRequestDispatcher("registrarDocente.jsp").forward(request, response);
 
                 }
 
@@ -205,7 +219,7 @@ public class Usuariocontrolador extends HttpServlet {
 
             case 5: //Eliminar usuario
 
-                int iddatos = Integer.parseInt(request.getParameter("idUsuario"));
+                int iddatos = Integer.parseInt(request.getParameter("textnumeroid"));
                 DatosPersonalesDAO datos = new DatosPersonalesDAO();
                 if (datos.eliminar(iddatos)) {
                     request.setAttribute("mensajeExito", "Se Elimino usuario "

@@ -12,10 +12,23 @@ package modeloVO;
 public class DatosPersonalesVO {
     
     private String datosnombres, datosapellidos, datostipoid, 
-            datostelefono, datosemail, datosfechanac; 
+            datostelefono, datosemail, datosfechanac,eps; 
+
+    
     private int idDatos;
 
     public DatosPersonalesVO() {
+    }
+
+    public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac,String eps) {
+        this.datosnombres = datosnombres;
+        this.datosapellidos = datosapellidos;
+        this.datostipoid = datostipoid;
+        this.idDatos = idDatos;
+        this.datostelefono = datostelefono;
+        this.datosemail = datosemail;
+        this.datosfechanac = datosfechanac;   
+        this.eps = eps;
     }
 
     public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac) {
@@ -28,6 +41,13 @@ public class DatosPersonalesVO {
         this.datosfechanac = datosfechanac;   
     }
 
+    public String getEps() {
+        return eps;
+    }
+
+    public void setEps(String eps) {
+        this.eps = eps;
+    }
     public String getDatosnombres() {
         return datosnombres;
     }

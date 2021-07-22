@@ -29,7 +29,14 @@
 
 
                 <div class="col-xl-4">
-
+                    <%
+                    int idDatos = 0;
+                        
+                    if(request.getAttribute("idDatos")!= null){
+                                    idDatos =(int) request.getAttribute("idDatos");
+                                       
+                                    }
+                    %>
                 </div>
                 <div class="col-xl-4">
                     <div class="datospersonales">
@@ -39,8 +46,8 @@
                             <input type="date" placeholder="" name="textfechaingreso"><br><br>
                             <h2><label>Fecha salida</label><br></h2>
                             <input type="date" placeholder="" name="textfechasalida"><br><br>                            
-                            <h2><label>Numero documento</label><br></h2>
-                            <input type="text" placeholder="" name="textdocumentoid"><br><br>   
+                            
+                            <input type="hidden" value="<%=idDatos%>" placeholder="" name="textdocumentoid"><br><br>   
                              <select class="tipodoc" name="textrol">
                                     <option>Seleccione...</option>
                                     <option value="1">administrador</option>

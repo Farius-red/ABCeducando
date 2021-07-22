@@ -30,7 +30,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
     public String sql,sql2;
 
     private String datosnombres = "", datosapellidos = "", datostipoid = "", 
-            datostelefono = "", datosemail = "", datosfechanac = "";
+            datostelefono = "", datosemail = "", datosfechanac = "",eps;
      private int idDatos;
     public DatosPersonalesDAO() {
     }
@@ -48,6 +48,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
             datostelefono = DatosVO.getDatostelefono();
             datosemail = DatosVO.getDatosemail();
             datosfechanac = DatosVO.getDatosfechanac();
+            eps = DatosVO.getEps();
 
         } catch (Exception e) {
             Logger.getLogger(DatosPersonalesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -60,7 +61,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
     public boolean agregar() {
 
         try {
-            sql = "INSERT INTO DatosUsuario(datostipoid,idDatos,nombre,apellidos,telefono,email,fechaNacimiento) VALUES(?, ?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO DatosUsuario(datostipoid,idDatos,nombre,apellidos,telefono,email,fechaNacimiento,EPS) VALUES(?,?,?,?,?,?,?,?)";
              
                     
                     
@@ -72,6 +73,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
             puente.setString(5, datostelefono);
             puente.setString(6, datosemail);
             puente.setString(7, datosfechanac);
+             puente.setString(8, eps);
             puente.executeUpdate();
             operacion = true;
 
@@ -94,7 +96,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
+            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento,EPS FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
 "INNER JOIN DatosUsuario ON DatosUsuario.idDatos = usuarios.usuarioid\n" +
 "WHERE rolYu.rol = 3";
             puente = conexion.prepareStatement(sql);
@@ -105,7 +107,8 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
                 datosVO = new DatosPersonalesVO(mensajero.getString(1), mensajero.getString(2),
                         mensajero.getString(3), mensajero.getInt(4),
                         mensajero.getString(5), mensajero.getString(6),
-                        mensajero.getString(7));
+                        mensajero.getString(7), mensajero.getString(8)
+                );
 
                 listadocentes.add(datosVO);
 
@@ -134,7 +137,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
+            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento,EPS FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
 "INNER JOIN DatosUsuario ON DatosUsuario.idDatos = usuarios.usuarioid\n" +
 "WHERE rolYu.rol = 2";
             puente = conexion.prepareStatement(sql);
@@ -145,7 +148,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
                 datosVO = new DatosPersonalesVO(mensajero.getString(1), mensajero.getString(2),
                         mensajero.getString(3), mensajero.getInt(4),
                         mensajero.getString(5), mensajero.getString(6),
-                        mensajero.getString(7));
+                        mensajero.getString(7), mensajero.getString(8));
 
                 listadocentes.add(datosVO);
 
@@ -218,17 +221,19 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
             
             
             
-            
-           
-            
-            sql2 = "DELETE FROM usuarios where usuarioid =" + id;
+               sql2 = "DELETE FROM usuarios where usuarioid =" + id;
             puente = conexion.prepareStatement(sql2);
             puente.executeUpdate();
-
+           
+           
             sql = "DELETE FROM DatosUsuario where idDatos =" + id;
 
-            puente = conexion.prepareStatement(sql);
+           puente = conexion.prepareStatement(sql);
             puente.executeUpdate();
+            
+             
+         
+
             
             operacion = true;
             

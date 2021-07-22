@@ -29,20 +29,35 @@
             </div>
             <div class="row">
                 <div class="col-xl-4">
+                    <%
+                        int idDatos = 0;
+                        String email="";
+                    if(request.getAttribute("idDatos")!= null){
+                                    idDatos =(int) request.getAttribute("idDatos");
+                                       
+                                    }
+                                    
+                                    if(request.getAttribute("email")!= null){
+                                    email =(String) request.getAttribute("email");
+                                       
+                                    }
 
+                    %>
                 </div>
 
                 <div class="col-xl-4">
                     <div class="datospersonales">
                         <form method="POST" action="Usuario">
+                            
+                            
                             <h1></h1><br>
                             <h2><label>Email</label><br></h2>
-                            <input type="text" placeholder="ejemplo@gmail.com" name="textusuario" required><br><br>
+                            <input type="text" placeholder="ejemplo@gmail.com" name="email" value="<%=email%>" required><br><br>
                             <h2><label>Contraseña</label><br></h2>
-                            <input type="password" placeholder="Escriba su contraseña aqui" name="textclave" required=""><br><br><br>
+                            <input type="password" placeholder="Escriba su contraseña aqui" name="clave" required=""><br><br><br>
 
-                        <h2><label>numero Documento</label><br></h2>
-                        <input type="text" placeholder="Escriba numero de documento aqui" name="textid" required><br><br>
+                        
+                        <input type="hidden" placeholder="Escriba numero de documento aqui" name="textnumeroid" value="<%=idDatos%>" required><br><br>
                            
                             <input type="hidden" value="2" name="opcion">
                              <button class="btnregistrar">Registrar</button>

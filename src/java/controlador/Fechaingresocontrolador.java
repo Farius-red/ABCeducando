@@ -21,7 +21,7 @@ import modeloVO.UsuarioVO;
  *
  * @author Hector
  */
-@WebServlet(name = "Fechaingresocontrolador", urlPatterns = {"/Fechaingreso"})
+@WebServlet(name = "Fechaingreso", urlPatterns = {"/Fechaingreso"})
 public class Fechaingresocontrolador extends HttpServlet {
 
     /**
@@ -38,14 +38,14 @@ public class Fechaingresocontrolador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Recogemos datos
         int opcion = Integer.parseInt(request.getParameter("opcion"));
-        int docenteid =Integer.parseInt(request.getParameter("textdocumentoid"));
+       
         String fechaingreso = request.getParameter("textfechaingreso");
         String fechasalida = request.getParameter("textfechasalida");
         int datosnumeroid = Integer.parseInt(request.getParameter("textdocumentoid"));
         int rol = Integer.parseInt(request.getParameter("textrol"));
 
         //enviamos datos al vo
-        FechaIngresoVO fechaVO = new FechaIngresoVO(docenteid, fechaingreso, fechasalida, datosnumeroid);
+        FechaIngresoVO fechaVO = new FechaIngresoVO(datosnumeroid, fechaingreso, fechasalida, datosnumeroid);
 
         //Llamar al DAO y mandarlo los datos del VO
         FechaingresoDAO fechaDAO = new FechaingresoDAO(fechaVO);
