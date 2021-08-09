@@ -1,3 +1,9 @@
+<%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="util.Conexion"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.io.File"%>
 <%@page import="modeloDAO.DocenteDAO"%>
 <%@page import="modeloVO.ActividadCargadaVO"%>
 <%@page import="modeloDAO.UsuarioDAO"%>
@@ -45,6 +51,7 @@
                                         <th>idActividad</th>
                                         <th>calificacion</th>
                                         <th>Estudiante</th>
+                                        <th>Acciones</th>
                                     
                                     </tr>
                                 </thead>
@@ -73,7 +80,14 @@
                                         <td><%=datosVO.getIdActividadCargada()%></td>
                                         <td><%=datosVO.getCalificacion()%></td>
                                        <td><%=datosVO.getEstudianteId()%></td>
-                                    
+                                       <td>
+                                           
+                                           <form method="post" action="generarBoletin.jsp" target="_blank">
+                                               <input  type="text" name="estudiante" value="<%=datosVO.getEstudianteId()%>" />
+                                               <input  class="btn-primary" type="submit" value="Generar Reporte">
+                                               
+                                           </form>
+                                       </td>
                                     </tr>
                                     
                                        <% }%>

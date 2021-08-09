@@ -42,14 +42,14 @@
                             <input type="text" placeholder="" name="textapellidos"><br><br>
                             
                             <h2><label>Tipo documento</label><br></h2>
-                            <select class="tipodoc" name="texttipoid">
+                            <select required class="tipodoc" name="texttipoid">
                                     <option>Seleccione...</option>
                                     <option value="Registro civil">RC</option>
                                     <option value="Tarjeta de identidad">TI</option>
                                     <option value="Cedula de ciudadania">CC</option>
                                 </select>
                                <h2><label>EPS</label><br></h2>
-                             <select class="tipodoc" name="eps">
+                               <select required class="tipodoc" name="eps">
                                     <option>Seleccione...Eps</option>
                                     <option value="sanitas">Sanitas</option>
                                     <option value="compensar">Compensar</option>
@@ -62,13 +62,13 @@
                                
                             <!--<input type="text" placeholder="" name="texttipoid"><br><br>-->
                             <h2><label>Numero documento</label><br></h2>
-                            <input type="text" placeholder="" name="textnumeroid"><br><br>
+                            <input type="text" placeholder="" name="textnumeroid" required ><br><br>
                             <h2><label>Teléfono</label><br></h2>
-                            <input type="text" placeholder="" name="texttelefono"><br><br>
+                            <input type="text" placeholder="" name="texttelefono" required><br><br>
                             <h2><label>Email</label><br></h2>
-                            <input type="text" placeholder="" name="textemail"><br><br>
+                            <input type="text" placeholder="" name="textemail" required><br><br>
                             <h2><label>Fecha de nacimiento</label><br></h2>
-                            <input type="date" placeholder="" name="textfechanacimiento"><br><br>
+                            <input type="date" placeholder="" name="textfechanacimiento" required><br><br>
                            
                             <input type="hidden" value="4" name="opcion">
                              <button class="btnregistrar">Registrar</button>

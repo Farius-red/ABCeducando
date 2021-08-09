@@ -32,7 +32,18 @@
                     </div>
                     </div>
         <div class="col-md-6 col-lg-8">
-
+            <%
+                    String clave ="",datosemail ="";
+                    String mensaje ="";
+                 if(request.getAttribute("clave")!= null){
+                                  clave =(String) request.getAttribute("clave");
+                                       mensaje= "Su clave de acceso es\n"+ clave;
+                                    }
+                 
+if(request.getAttribute("datosemail")!= null){
+                                         datosemail =(String) request.getAttribute("datosemail");
+                                    }
+            %>
 
             <form method="post" action="Mensajes">
                 <div class="card " style=" width: 100%; height: 60%">
@@ -47,14 +58,14 @@
                             <div class="col-md-6">
                             <label class="text-bold font-italic">Destino</label>
                             <input 
-                                type="text"  placeholder="Escriba correo destino" class="form-control" name="receptor"
-                                required />
+                                type="text"  placeholder="Escriba correo destino" class="form-control text-success" style="font-size: 15px;" name="receptor"
+                                required value="<%=datosemail%>" />
                             </div>
-                            
+                             <input id="metodo" type="hidden" name="opcion" value="1" >
                              <div class="col-md-6">
                                  <label class="text-bold font-italic">Asunto</label>
                             <input 
-                                type="text" class="form-control" placeholder="Escriba un asunto" name="asunto"
+                                type="text"   class="form-control" style="font-size: 15px;" placeholder="Escriba un asunto" name="asunto"
                                 required />
                             </div>
                         </div>
@@ -63,7 +74,7 @@
                             <label class="text-bold font-italic">mensaje</label>
                             <textarea 
                                 class="form-control" placeholder="Escriba su mensaje aqui" name="contenido"
-                                rows="3" required></textarea>
+                                rows="3"  required><%=mensaje %> </textarea>
                         </div>
                     </div>
                     <div class="card-footer align-content-center">
@@ -87,7 +98,7 @@
                         <th scope="col">id</th>
                         <th scope="col">mensaje</th>
                          <th scope="col">destinatario</th>
-
+                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="">
@@ -103,6 +114,17 @@
                         <th><%=mensVO.getId_mensaje()%></th>
                         <th class="font-weight-normal"><%=mensVO.getMensaje()%></th>
                         <th class="font-weight-normal"><%=mensVO.getDestinatario()%></th>
+                        <td>
+                                            <form id="crudForm"  action="Mensajes" method="post">
+                                                
+                                                <input id="metodo" type="hidden" name="opcion" value="2" >
+                                             
+                                                <input type="hidden"  name="idMensaje" value="<%=mensVO.getId_mensaje()%>">
+                                                
+                                                <button type="submit" class="btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                
+                                            </form>
+                                        </td>
                     </tr>
                       <% }%>
                 </tbody>

@@ -63,11 +63,11 @@ public class Usuariocontrolador extends HttpServlet {
         String usuarioPassword = "";
 
         if (opcion == 1) {
-            usuarioid = Integer.parseInt(request.getParameter("textid"));
+           
             usuariologin = request.getParameter("textusuario");
             usuarioPassword = request.getParameter("textclave");
 
-        } else if (opcion == 4 || opcion == 6 || opcion == 7) {
+        } else if (opcion == 4 || opcion == 6 || opcion == 7 || opcion == 8) {
 
             datosnombres = request.getParameter("textnombres");
             datosapellidos = request.getParameter("textapellidos");
@@ -182,7 +182,7 @@ public class Usuariocontrolador extends HttpServlet {
                 String rutaYnombre = arch.getAbsolutePath();
 
                 if (usuDAO.cargarMatriculas(rutaYnombre)) {
-                    request.getRequestDispatcher("listaMatriculas.jsp").forward(request, response);
+                    request.getRequestDispatcher("administrativo.jsp").forward(request, response);
 
                 } else {
                     request.setAttribute("mensajeError", "¡El archivo no se almaceno correctamente!");
@@ -258,6 +258,24 @@ public class Usuariocontrolador extends HttpServlet {
                     request.getRequestDispatcher("administrativo.jsp").forward(request, response);
                 }
 
+                break;
+                
+            case 8 : // Capturar contraseña para enviar mensaje
+                
+                  String clav = request.getParameter("clave");
+                
+                if(clav != null && datosemail != null){
+                        request.setAttribute("clave",clav); 
+                        request.setAttribute("datosemail",datosemail); 
+                        
+                        
+                    request.getRequestDispatcher("crearmensaje.jsp").forward(request, response);
+                }
+                else
+                {
+                request.setAttribute("mensajeError", "No Pudo enviar la contraseña Correctamente");
+                request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                }
                 break;
 
         }

@@ -12,15 +12,19 @@ package modeloVO;
 public class DatosPersonalesVO {
     
     private String datosnombres, datosapellidos, datostipoid, 
-            datostelefono, datosemail, datosfechanac,eps; 
+            datostelefono, datosemail, datosfechanac,eps,clave; 
 
     
     private int idDatos;
 
     public DatosPersonalesVO() {
     }
+    
+     public DatosPersonalesVO(String clave) {
+         this.clave = clave;
+    }
 
-    public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac,String eps) {
+    public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac,String eps, String clave) {
         this.datosnombres = datosnombres;
         this.datosapellidos = datosapellidos;
         this.datostipoid = datostipoid;
@@ -29,8 +33,29 @@ public class DatosPersonalesVO {
         this.datosemail = datosemail;
         this.datosfechanac = datosfechanac;   
         this.eps = eps;
+        this.clave = clave;
     }
 
+    
+      public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac,String eps) {
+        this.datosnombres = datosnombres;
+        this.datosapellidos = datosapellidos;
+        this.datostipoid = datostipoid;
+        this.idDatos = idDatos;
+        this.datostelefono = datostelefono;
+        this.datosemail = datosemail;
+        this.datosfechanac = datosfechanac;   
+        this.eps = eps;
+        
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
     public DatosPersonalesVO(String datosnombres, String datosapellidos, String datostipoid, Integer idDatos, String datostelefono, String datosemail, String datosfechanac) {
         this.datosnombres = datosnombres;
         this.datosapellidos = datosapellidos;

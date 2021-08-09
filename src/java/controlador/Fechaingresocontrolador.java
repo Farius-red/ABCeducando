@@ -59,7 +59,7 @@ public class Fechaingresocontrolador extends HttpServlet {
                 if (fechaDAO.agregarFechas(datosnumeroid,rol )) {
 
                     request.setAttribute("mensajeExito", "¡El usuario se registro correctamente!");
-                   request.getRequestDispatcher("listardocentes.jsp").forward(request, response);
+                   request.getRequestDispatcher("administrativo.jsp").forward(request, response);
 
                 } else {
 

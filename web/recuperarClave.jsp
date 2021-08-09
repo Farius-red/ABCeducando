@@ -2,7 +2,7 @@
 <html class="no-js" lang="zxx">
 <head>
     
-    <title> Login</title>
+    <title> Recuperar Clave</title>
     <meta name="description" content="">
     <%@include file="Componentes/head.jsp" %>
   
@@ -26,37 +26,33 @@
         <!-- Login Admin -->
         
        
-        <form class="form-default" action="Usuario" method="POST">
+        <form class="form-default" action="Mensajes" method="POST">
             
             <div class="login-form">
                 <!-- logo-login -->
                 <div class="logo-login">
-                    <a href="index.jsp"><img src="assets/img/logo/loder.png" alt=""></a>
+                    <a href="index.html"><img src="assets/img/logo/loder.png" alt=""></a>
                 </div>
-                <h2>Iniciar Sesión </h2>
+                <h2>Recuperar clave </h2>
                 <div class="form-input">
                     <label for="name">Correo</label>
-                    <input  type="text" name="textusuario" placeholder="escribe nombre de usuario" required>
+                    <input  type="text" name="receptor" placeholder="escriba su correo" required>
                 </div>
-                <div class="form-input">
-                    <label for="name">Clave</label>
-                    <input type="password" name="textclave" placeholder="Password" required="">
-                </div>
+                
                 <div class="form-input pt-30">
-                    <input type="submit" name="submit" value="login">
-                    <input type="hidden" value="1" name="opcion">
+                    <input type="submit" name="submit" value="Recuperar Clave">
+                    <input type="hidden" value="3" name="opcion">
                     
                 </div>
                 
                 <!-- Forget Password -->
-                <a href="recuperarClave.jsp" class="forget">¿olvido su clave?</a>
-                <!-- Forget Password -->
-                 <div class="container">
+                <a href="login.jsp" class="forget">login</a>
+               <div class="container">
             <h1> <%@include file="Componentes/mensajesRespuesta.jsp"%></h1>
         </div>
             </div>
         </form>
-       
+        
         <!-- /end login form -->
     </main>
 

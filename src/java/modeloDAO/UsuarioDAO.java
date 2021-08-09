@@ -86,7 +86,7 @@ public class UsuarioDAO extends Conexion implements Crud {
             }
 
         } catch (SQLException e) {
-            System.err.println(e.toString());
+             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             try {
                 this.cerrarConexion();
@@ -161,10 +161,16 @@ public class UsuarioDAO extends Conexion implements Crud {
        for (int i = 0; i <= numero_filas; i++) {
 
                 Row fila = hoja.getRow(i);
-                consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellido,telefono,email,fechaNacimiento) values(?,?,?,?,?,?)";
+                
+                 // crea datos usuario 
+                consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellidos,telefono,email) values(?,?,?,?,?,?)";
                 puente = conexion.prepareStatement(consul);
                 double cellu = fila.getCell(0).getNumericCellValue();
                 int idu = (int) cellu;
+                
+              email = fila.getCell(6).getStringCellValue();
+                
+                
                 puente.setInt(1, idu);
                 puente.setString(2, fila.getCell(2).getStringCellValue());
                 puente.setString(3,fila.getCell(3).getStringCellValue());
@@ -173,11 +179,37 @@ public class UsuarioDAO extends Conexion implements Crud {
                   int tele = (int) tel;
                   String telefono = String.valueOf(tele);
                 puente.setString(5, telefono);
-                puente.setString(6, fila.getCell(6).getStringCellValue());
+                puente.setString(6, email);
             
                 
                 
                 puente.executeUpdate();
+                
+                
+                // crear usuario 
+                
+                sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword,datosUsuarioID) values(?,?,?,?)";
+                puente = conexion.prepareStatement(sql);
+                puente.setInt(1, idu);
+               puente.setString(2, email);
+                puente.setString(3, "123456");
+                puente.setInt(4, idu);
+               puente.executeUpdate();
+                
+               
+               // crea el rol 
+               
+               sql2 = "insert into rolYu(id_rolYu,rol,usuario) values(?,?,?)";
+                 puente = conexion.prepareStatement(sql2);
+               puente.setInt(1, idu);
+                puente.setInt(2, 2);
+                 puente.setInt(3, idu);
+
+               puente.executeUpdate();
+                
+               
+               
+                
             }
            
            
@@ -186,55 +218,55 @@ public class UsuarioDAO extends Conexion implements Crud {
      
             // si la lista que trae de el metodo de carga de matriculas tiene datos 
             // los itera y los inserta en la base de datos
-            if(!cargarMatricula.isEmpty()){
-           for (int i = 0; i < cargarMatricula.size(); i++) {
-                usuvo= (UsuarioVO) cargarMatricula.get(i);
+         //   if(!cargarMatricula.isEmpty()){
+          // for (int i = 0; i < cargarMatricula.size(); i++) {
+                //usuvo= (UsuarioVO) cargarMatricula.get(i);
             
                 
-                consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellido,telefono,email,fechaNacimiento) values(?,?,?,?,?,?,?)";
-                puente = conexion.prepareStatement(consul);
-                puente.setInt(1, usuvo.getUsuarioid());
-                puente.setString(2, usuvo.getDatostipoid());
-                puente.setString(3, usuvo.getNombre());
-                puente.setString(4, usuvo.getApellidos());
-                puente.setString(5, usuvo.getTelefono());
-                puente.setString(6, usuvo.getEmail());
-                puente.setDate(7, usuvo.getFechaNacimiento());
+                // consul="insert into DatosUsuario(idDatos,datostipoid,nombre,apellidos,telefono,email,EPS) values(?,?,?,?,?,?,?)";
+               // puente = conexion.prepareStatement(consul);
+               // puente.setInt(1, usuvo.getUsuarioid());
+               // puente.setString(2, usuvo.getDatostipoid());
+               // puente.setString(3, usuvo.getNombre());
+               // puente.setString(4, usuvo.getApellidos());
+               // puente.setString(5, usuvo.getTelefono());
+               // puente.setString(6, usuvo.getEmail());
+               // puente.setDate(7, usuvo.getFechaNacimiento());
                 
-                puente.executeUpdate();
+              //  puente.executeUpdate();
                 
-                sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword) values(?,?,?)";
-                puente = conexion.prepareStatement(sql);
-                puente.setInt(1, usuvo.getUsuarioid());
-                puente.setString(2, usuvo.getEmail());
-                puente.setString(3, usuvo.getUsuarioPassword());
+               // sql = "insert into usuarios(usuarioid,usuariologin, usuarioPassword) values(?,?,?)";
+                //puente = conexion.prepareStatement(sql);
+                //puente.setInt(1, usuvo.getUsuarioid());
+               // puente.setString(2, usuvo.getEmail());
+                //puente.setString(3, usuvo.getUsuarioPassword());
 
-                puente.executeUpdate();
+               // puente.executeUpdate();
             
                  
-                sql2 = "insert into rolYu(id_rolYu,rol,usuario) values(?,?,?,?)";
-                puente = conexion.prepareStatement(sql2);
-                puente.setInt(1, usuvo.getUsuarioid());
-                puente.setInt(2, 2);
-                puente.setInt(3, usuvo.getUsuarioid());
+                //  sql2 = "insert into rolYu(id_rolYu,rol,usuario) values(?,?,?,?)";
+                //  puente = conexion.prepareStatement(sql2);
+               //  puente.setInt(1, usuvo.getUsuarioid());
+               // puente.setInt(2, 2);
+                 // puente.setInt(3, usuvo.getUsuarioid());
 
-                puente.executeUpdate();
+               // puente.executeUpdate();
                 
                 
                  
-                sql2 = "insert into Matricula(MatriculaId,EstudianteId) values(?,?)";
-                puente = conexion.prepareStatement(sql2);
-                puente.setInt(1, usuvo.getUsuarioid());
-                puente.setInt(2, usuvo.getUsuarioid());
+               // sql2 = "insert into Matricula(MatriculaId,EstudianteId) values(?,?)";
+               // puente = conexion.prepareStatement(sql2);
+           //puente.setInt(1, usuvo.getUsuarioid());
+             //   puente.setInt(2, usuvo.getUsuarioid());
 
-                puente.executeUpdate();
+              //  puente.executeUpdate();
             
             
-                   }
+                   
            
                    operacion = true;
              
-            } 
+            //}
 
         } catch (IOException | SQLException e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);

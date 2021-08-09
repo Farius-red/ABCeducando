@@ -29,7 +29,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
     public boolean operacion = false;
     public String sql,sql2;
 
-    private String datosnombres = "", datosapellidos = "", datostipoid = "", 
+    private String datosnombres = "", datosapellidos = "", datostipoid = "", contra, 
             datostelefono = "", datosemail = "", datosfechanac = "",eps;
      private int idDatos;
     public DatosPersonalesDAO() {
@@ -137,7 +137,7 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento,EPS FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
+            sql = "SELECT nombre,apellidos,datostipoid,idDatos,telefono, email, fechaNacimiento,EPS,usuarioPassword FROM rolYu INNER JOIN usuarios on usuarios.usuarioid = rolYu.usuario\n" +
 "INNER JOIN DatosUsuario ON DatosUsuario.idDatos = usuarios.usuarioid\n" +
 "WHERE rolYu.rol = 2";
             puente = conexion.prepareStatement(sql);
@@ -148,7 +148,9 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
                 datosVO = new DatosPersonalesVO(mensajero.getString(1), mensajero.getString(2),
                         mensajero.getString(3), mensajero.getInt(4),
                         mensajero.getString(5), mensajero.getString(6),
-                        mensajero.getString(7), mensajero.getString(8));
+                        mensajero.getString(7), mensajero.getString(8),
+                        mensajero.getString(9)
+                );
 
                 listadocentes.add(datosVO);
 
@@ -249,6 +251,39 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
 
         }
 
+        return operacion;
+    }
+
+    public boolean consultaClave(int idDatos) {
+        
+         DatosPersonalesVO datosVO = new DatosPersonalesVO();
+        
+
+        try {
+            conexion = this.obtenerConexion();
+            sql = "SELECT usuarioPassword FROM usuarios WHERE usuarioid ="+idDatos;
+            puente = conexion.prepareStatement(sql);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+                
+                datosVO = new DatosPersonalesVO(mensajero.getString(1));
+
+                
+
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DatosPersonalesDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+
+            try {
+                this.cerrarConexion();
+            } catch (Exception e) {
+                Logger.getLogger(DatosPersonalesDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        }
+        
         return operacion;
     }
     

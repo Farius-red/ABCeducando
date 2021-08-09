@@ -45,7 +45,7 @@
                             <div class="col-md-12 text-center">
                                 <input value="" name="nombreArchivo" type="hidden" />
                                 <input value="3" name="opcion" type="hidden" />
-                                <button  name="procesar" class="btn btn-primary btn-lg">Cargar Archivo de matriculas</button>
+                               
                             </div>
                         </div>
 
@@ -54,13 +54,7 @@
                     </form>
         </div>
                         
-                        <div class="card-footer">
-                            
-                           
-                                                        <a href="registrar_matricula.jsp"  class="btn  bg-success">Registrar matricula</a>
-                                                       
-                                         
-                        </div>
+                        
                     </div>
                 </div>                                       
             </div>

@@ -9,8 +9,8 @@
                                     <div class="d-flex justify-content-between flex-wrap align-items-center">
                                         <div class="header-info-left">
                                             <ul>     
-                                                <li><i class="fas fa-map-marker-alt"></i> 57/A, Green Lane, NYC</li>
-                                                <li><i class="fas fa-phone-alt"></i> +10 (78) 367 3692</li>
+                                                <li><i class="fas fa-map-marker-alt"></i> Bogota Colombia</li>
+                                                <li><i class="fas fa-phone-alt"></i> 315 367 3692</li>
                                             </ul>
                                         </div>
                                         <div class="header-info-right">
@@ -50,7 +50,7 @@
                                                 <li><a href="#">Matriculas</a>
                                                     <ul class="submenu">
                                                         <li><a href="registrar_matricula.jsp">Registrar matricula</a></li>
-                                                        <li><a href="listaMatriculas.jsp">Ver matriculas</a></li>
+                                                        
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">Docente</a>

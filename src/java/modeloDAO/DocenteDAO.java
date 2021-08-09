@@ -145,7 +145,7 @@ public class DocenteDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada, ActividadCargada\n" +
+            sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada INNER JOIN ActividadCargada on ActividadCargada.ActividadCargadaId =idActividadCargada\n" +
 "where  ActividadCargada.DocenteId = ?";
             puente = conexion.prepareStatement(sql);
             puente.setInt(1, idDocente);

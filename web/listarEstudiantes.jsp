@@ -37,7 +37,9 @@
                                         <th>Acciones</th>
                                     </tr>
                                     </thead>
-                                    <%
+                                   
+                                    <tbody>
+                                         <%
                                         
                                         DatosPersonalesVO datosVO = new DatosPersonalesVO();
                                         DatosPersonalesDAO datosDAO = new DatosPersonalesDAO();
@@ -45,7 +47,6 @@
                                         for (int i = 0; i < listadocentes.size(); i++) {
                                             datosVO = listadocentes.get(i);
                                     %>
-                                    <tbody>
                                     <tr>
                                         <td>
                                         <%=datosVO.getIdDatos()%>
@@ -59,15 +60,17 @@
                                          <td>
                                             <form id="crudForm"  action="Usuario" method="post">
                                                 
-                                                <input id="metodo" type="hidden" name="opcion" value="5">
+                                                <input id="metodo" type="hidden" name="opcion" value="" >
                                              
                                                 <input type="hidden"  name="textnumeroid" value="<%=datosVO.getIdDatos()%>">
                                                 <input type="hidden"  name="textnombres" value="<%=datosVO.getDatosnombres()%>">
                                                 <input type="hidden"  name="textapellidos" value="<%=datosVO.getDatosapellidos()%>">
                                                 <input type="hidden"  name="texttelefono" value="<%=datosVO.getDatostelefono()%>">
                                                 <input type="hidden"  name="textemail" value="<%=datosVO.getDatosemail()%>">
-                                                <button type="submit" class="btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                                <button onclick="crud('6')" class="btn-warning"><i class="fas fa-user-edit"></i></button>
+                                                <input type="hidden"  name="clave" value="<%=datosVO.getClave()%>">
+                                                <button onclick="crud(5)" class="btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                <button onclick="crud(6)" class="btn-warning"><i class="fas fa-user-edit"></i></button>
+                                                <button onclick="crud(8)" class="btn-primary">Enviar clave</button>
                                             </form>
                                         </td>
                                     </tr>
