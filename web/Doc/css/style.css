@@ -114,3 +114,59 @@
   background-image: linear-gradient(to bottom, #eb6fb1, #cc2626);
   text-decoration: none;
 }
+
+.formulario{
+    --formulario-ok: #4caf50;
+    --formulario-error:#f44336;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.formulario input
+.formulario textarea{
+    padding: 1px;
+    font-size: 15px;
+    font-family: sans-serif;
+}
+
+.formulario [required]:valid{
+    border:thin solid var(--formulario-ok);
+
+    
+}
+
+.formulario [required]:invalid{
+    border: thin solid var(--formulario-error);
+   
+}
+
+.formularo-error{
+    margin-top: -1rem;
+    font-size: 80%;
+    background-color: var(--formulario-error);
+    color:#fff;
+    transition: all 800ms ease;
+}
+
+.none{
+    display:none;
+}
+.formularo-error.is-active{
+    display: block;
+    animation:  muestra-mensaje 1s 1 normal 0s ease-out-both;
+}
+
+@keyframes muestra-mensaje{
+    0%{
+        visibility:hidden;
+        opacity:0;
+        
+    }
+    
+    100%{
+        visibility:visible;
+        opacity:1;
+        
+    }
+}

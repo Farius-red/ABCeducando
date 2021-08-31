@@ -146,7 +146,49 @@ public class DocenteDAO extends Conexion implements Crud {
         try {
             conexion = this.obtenerConexion();
             sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada INNER JOIN ActividadCargada on ActividadCargada.ActividadCargadaId =idActividadCargada\n" +
-"where  ActividadCargada.DocenteId = ?";
+"where  ActividadCargada.DocenteId = ? ";
+            puente = conexion.prepareStatement(sql);
+            puente.setInt(1, idDocente);
+              mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+                actiE = new ActividadEntregadaVO(
+                        mensajero.getInt(1),
+                        mensajero.getString(2),
+                        mensajero.getInt(3),
+                        mensajero.getInt(4),
+                        mensajero.getString(5),
+                        mensajero.getString(6)
+                );
+                listaActi.add(actiE);
+
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+
+            try {
+                this.cerrarConexion();
+            } catch (SQLException e) {
+                Logger.getLogger(DocenteDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        }
+
+        return listaActi;
+
+    }
+    
+    
+    public ArrayList<ActividadEntregadaVO> listarnotas(int idDocente) {
+
+        ActividadEntregadaVO actiE = null;
+        ArrayList<ActividadEntregadaVO> listaActi = new ArrayList<>();
+
+        try {
+            conexion = this.obtenerConexion();
+            sql = "SELECT ActividadEntregadaId, EstudianteId,idActividadCargada, Calificacion, ActividadEntregadaRuta ,ActividadEntregadaEstado FROM ActividadEntregada INNER JOIN ActividadCargada on ActividadCargada.ActividadCargadaId =idActividadCargada\n" +
+"where  ActividadCargada.DocenteId = ? and ActividadEntregadaEstado ='calificado' GROUP BY EstudianteId";
             puente = conexion.prepareStatement(sql);
             puente.setInt(1, idDocente);
               mensajero = puente.executeQuery();

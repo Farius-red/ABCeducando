@@ -9,16 +9,7 @@
 </head>
 <body>
     <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+    <%@include file="Componentes/preloadaer.jsp" %>
     <!-- Preloader Start-->
 
 
@@ -26,7 +17,7 @@
         <!-- Login Admin -->
         
        
-        <form class="form-default" action="Usuario" method="POST">
+        <form class=" formulario " action="Usuario" method="POST">
             
             <div class="login-form">
                 <!-- logo-login -->
@@ -36,7 +27,7 @@
                 <h2>Iniciar Sesión </h2>
                 <div class="form-input">
                     <label for="name">Correo</label>
-                    <input  type="text" name="textusuario" placeholder="escribe nombre de usuario" required>
+                    <input  type="text" name="textusuario" placeholder="escribe nombre de usuario"  title="Email incorrecto revise su formato" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
                 </div>
                 <div class="form-input">
                     <label for="name">Clave</label>

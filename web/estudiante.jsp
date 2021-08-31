@@ -44,6 +44,8 @@
                                       
                                       <h1>Bienvenido: <%=usu.getNombre()%></h1>
                                       <%}%>
+                                      
+                                      <%@include file="Componentes/mensajesRespuesta.jsp" %>
             </div>
 
 

@@ -170,14 +170,9 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
         return listadocentes;
 
     }
-
+    
     @Override
-    public boolean listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean actualizar() {
+   public boolean actualizar() {
          try {
             sql = "UPDATE DatosUsuario SET datostipoid=?,nombre=?,apellidos=?,telefono=?,email=? WHERE DatosUsuario.idDatos = ?";
              
@@ -193,6 +188,54 @@ public class DatosPersonalesDAO extends Conexion implements Crud {
          
             puente.setInt(6, idDatos);
             puente.executeUpdate();
+            operacion = true;
+
+        } catch (Exception e) {
+            Logger.getLogger(DatosPersonalesDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            try {
+                this.cerrarConexion();
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+        }
+        return operacion;
+    }
+    
+
+    @Override
+    public boolean listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean actualizarClave(String cla) {
+         try {
+            sql = "UPDATE DatosUsuario SET datostipoid=?,nombre=?,apellidos=?,telefono=?,email=? WHERE DatosUsuario.idDatos = ?";
+             
+                    
+                    
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, datostipoid);
+           
+            puente.setString(2, datosnombres);
+            puente.setString(3, datosapellidos);
+            puente.setString(4, datostelefono);
+            puente.setString(5, datosemail);
+         
+            puente.setInt(6, idDatos);
+            puente.executeUpdate();
+            
+            sql2 = "UPDATE usuarios SET usuariologin=?,usuarioid=?,usuarioPassword=?,datosUsuarioID=? WHERE datosUsuarioID = ?";
+                    
+            puente = conexion.prepareStatement(sql2);
+            puente.setString(1,datosemail);
+           
+            puente.setInt(2, idDatos);
+            puente.setString(3, cla);
+            puente.setInt(4, idDatos);
+             puente.setInt(5, idDatos);
+            puente.executeUpdate();
+            
             operacion = true;
 
         } catch (Exception e) {

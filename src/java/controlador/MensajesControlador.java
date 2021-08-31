@@ -115,8 +115,10 @@ public class MensajesControlador extends HttpServlet {
                 try {
 
                     
-                        String contra = "abcEducando123";
-                        contenido = "su clave es :>" + contra +"recuerde cambiarla al logearse";
+                     int clav = (int)(Math.random()*7350 +1131);
+                     
+                     String contra = String.valueOf(clav);
+                        contenido = "su clave es :" + contra ;
 
                         if (mensDAo.CambiarClave(contra, receptor)) {
                             Mensajes.envioMensajes(host, puerto, usuario, clave, receptor, asunto, contenido);

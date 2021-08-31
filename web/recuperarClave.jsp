@@ -26,7 +26,7 @@
         <!-- Login Admin -->
         
        
-        <form class="form-default" action="Mensajes" method="POST">
+        <form class="formulario form-default" action="Mensajes" method="POST">
             
             <div class="login-form">
                 <!-- logo-login -->
@@ -36,7 +36,7 @@
                 <h2>Recuperar clave </h2>
                 <div class="form-input">
                     <label for="name">Correo</label>
-                    <input  type="text" name="receptor" placeholder="escriba su correo" required>
+                    <input  type="text" name="receptor" placeholder="escriba su correo"  title="Email incorrecto revise su formato" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"  required>
                 </div>
                 
                 <div class="form-input pt-30">

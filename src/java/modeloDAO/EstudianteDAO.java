@@ -18,7 +18,7 @@ public class EstudianteDAO extends Conexion implements Crud {
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
-    private boolean operacion = false;
+    private boolean operacion = false, validar;
     private Statement st;
     
 
@@ -30,7 +30,7 @@ public class EstudianteDAO extends Conexion implements Crud {
     private int ActividadEntregadaId, idActividadCargada, calificacion;
     private String ActividadEntregadaRuta, EstudianteId, ActividadEntregadaEstado;
     
-    private int comparacion;
+    private boolean comparacion;
 
     public EstudianteDAO() {
     }
@@ -149,7 +149,7 @@ public class EstudianteDAO extends Conexion implements Crud {
 
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT ActividadEntregadaId, idActividadCargada,Calificacion,ActividadEntregadaEstado FROM ActividadEntregada WHERE EstudianteId =?";
+            sql = "SELECT ActividadEntregadaId, idActividadCargada,Calificacion,ActividadEntregadaEstado FROM ActividadEntregada WHERE EstudianteId =?  ";
             puente = conexion.prepareStatement(sql);
             puente.setString(1, idEstudiante);
             mensajero = puente.executeQuery();
@@ -223,13 +223,28 @@ public class EstudianteDAO extends Conexion implements Crud {
 
             for (int i = 0; i < listaActi.size(); i++) {
                 idActividadCargada = listaActi.get(i).getActividadCargadaId();
-
-     
-               comparacion = listaEntrega.indexOf(idActividadCargada) ;
-
-                     if(comparacion == -1){
-                  pendientes.add(listaActi.get(i));
+            
+           int j =0;
+                if(listaEntrega.isEmpty()){
+                     pendientes.add(listaActi.get(i));
+            }
+               
+                while(j < listaEntrega.size()  ){
+                    
+            int actividad  =  listaEntrega.get(j).getIdActividadCargada();
+                    
+                 if( idActividadCargada != actividad){
+                     
+                     if(i==j){
+                     pendientes.add(listaActi.get(i));
+                     }else if(listaEntrega.size() != listaActi.size()){
+                      pendientes.add(listaActi.get(i));
+                     }
+                   }
+                 
+                 j++;
                 }
+             
                 
             }
             

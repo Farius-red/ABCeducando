@@ -1,6 +1,7 @@
 
-
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
+<%@page import="net.sf.jasperreports.engine.JasperExportManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="util.Conexion"%>
 <%@page import="util.Conexion"%>
@@ -16,16 +17,18 @@
         <title>Generar boletin </title>
     </head>
     <body>
-         <%
+         <% 
+                                              String estudiante ="";              
                                            File  reporte = new File(application.getRealPath("notas.jasper"));
                                            Map<String,Object> parametros = new HashMap<String, Object>();
                                            
-                                           String estudiante = request.getParameter("estudiante");
-                                           parametros.put("estudiante", new String(estudiante));
+                                           estudiante = request.getParameter("estudiante");
+                                           parametros.put("nombre", new String(estudiante));
+                                           
                                            Conexion conex = new  Conexion();
                                            Connection conexion = conex.obtenerConexion();
                                            
-                                           byte[] reportesBytes = JasperRunManager.runReportToPdf(reporte.getPath(),parametros, conexion);
+                                           byte[] reportesBytes = JasperRunManager.runReportToPdf(reporte.getPath(), parametros, conexion);
                                             response.setContentType("application/pdf");
                                             response.setContentLength(reportesBytes.length);
                                             
@@ -34,7 +37,7 @@
                                             
                                             salida.flush();
                                             salida.close();
-                                            
+                                      
                                            %>
     </body>
 </html>

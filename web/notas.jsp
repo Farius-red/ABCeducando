@@ -48,8 +48,7 @@
                                 <thead class="text-white" style="background: #ED078B;">
                                     <tr> 
                                         
-                                        <th>idActividad</th>
-                                        <th>calificacion</th>
+                                       
                                         <th>Estudiante</th>
                                         <th>Acciones</th>
                                     
@@ -71,19 +70,21 @@
                                         
                                         ActividadEntregadaVO datosVO = new  ActividadEntregadaVO();
                                        DocenteDAO datosDAO = new DocenteDAO();
-                                        ArrayList< ActividadEntregadaVO> listaActividad = datosDAO.listarActivadesEntregadas(idDocente);
+                                        ArrayList< ActividadEntregadaVO> listaActividad = datosDAO.listarnotas(idDocente);
                                         for (int i = 0; i < listaActividad.size(); i++) {
                                             datosVO = listaActividad.get(i);
                                     %>
+                                    
+                                    
                                     <tr>
                                    
-                                        <td><%=datosVO.getIdActividadCargada()%></td>
-                                        <td><%=datosVO.getCalificacion()%></td>
+                                       
                                        <td><%=datosVO.getEstudianteId()%></td>
                                        <td>
                                            
                                            <form method="post" action="generarBoletin.jsp" target="_blank">
-                                               <input  type="text" name="estudiante" value="<%=datosVO.getEstudianteId()%>" />
+                                               <input  type="hidden" name="estudiante" value="<%=datosVO.getEstudianteId()%>" />
+                                               
                                                <input  class="btn-primary" type="submit" value="Generar Reporte">
                                                
                                            </form>

@@ -34,15 +34,15 @@
                 </div>
                 <div class="col-xl-4">
                     <div class="datospersonales">
-                        <form method="post" action="Usuario">
+                        <form  class="formulario" method="post" action="Usuario">
                             <h1>Datos Personales</h1><br>
                             <h2><label>Nombres</label><br></h2>
-                            <input type="text" placeholder="" name="textnombres"><br><br>
+                            <input type="text" title="Nombre solo acepta letrad y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" placeholder="Escriba nombre aqui" name="textnombres" required=""><br><br>
                             <h2><label>Apellidos</label><br></h2>
-                            <input type="text" placeholder="" name="textapellidos"><br><br>
+                            <input type="text" placeholder="Escriba apellido aqui" name="textapellidos" title="" required=""><br><br>
                             
                             <h2><label>Tipo documento</label><br></h2>
-                            <select required class="tipodoc" name="texttipoid">
+                            <select required class="tipodoc" pattern=""  name="texttipoid">
                                     <option>Seleccione...</option>
                                     <option value="Registro civil">RC</option>
                                     <option value="Tarjeta de identidad">TI</option>
@@ -62,11 +62,11 @@
                                
                             <!--<input type="text" placeholder="" name="texttipoid"><br><br>-->
                             <h2><label>Numero documento</label><br></h2>
-                            <input type="text" placeholder="" name="textnumeroid" required ><br><br>
+                            <input type="text" placeholder="" name="textnumeroid" title="" required="" ><br><br>
                             <h2><label>Teléfono</label><br></h2>
-                            <input type="text" placeholder="" name="texttelefono" required><br><br>
+                            <input type="text" placeholder="" name="texttelefono" title="" required=""><br><br>
                             <h2><label>Email</label><br></h2>
-                            <input type="text" placeholder="" name="textemail" required><br><br>
+                            <input type="email" placeholder="Escriba un email" name="textemail" title="Email incorrecto revise su formato" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required=""><br><br>
                             <h2><label>Fecha de nacimiento</label><br></h2>
                             <input type="date" placeholder="" name="textfechanacimiento" required><br><br>
                            

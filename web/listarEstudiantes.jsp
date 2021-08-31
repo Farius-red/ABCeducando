@@ -11,6 +11,7 @@
         <%@include  file="Componentes/head.jsp" %>
     </head>
     <body>
+         <script src="assets/js/crud/crud.js" type="text/javascript"></script>
         <%@include file="Componentes/header.jsp" %>
         <section class="container-fluid">
             <div class="row">
@@ -90,6 +91,6 @@
 
         </section>
      <%@include file="Componentes/footer.jsp" %>
-      <script src="assets/js/crud/crud.js" type="text/javascript"></script>
+     
     </body>
 </html>

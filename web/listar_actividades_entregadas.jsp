@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="registrodocente">
-                        <h1>Actividades cargadas</h1>                                          
+                        <h1>Actividades Entregadas</h1>                                          
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@
 
                         <div class="datagrid">
                             <table class="actividadescargadas table-hover container">
-                                <thead class="text-white" style="background: #ED078B;">
+                                <thead class="text-white" style="background: #ED078B!important;">
                                     <tr> 
                                         <th>idActividad</th>
                                         <th>Nombre Actividad</th>
@@ -91,8 +91,8 @@
                                         <td>
                                             
                                             <form  method="post" action="Estudiante">
-                                                <input  type="text" name="idActividad" value="<%=datosVO.getActividadCargadaId()%>">
-                                                <input  type="text" name="opcion" value="idActividad">
+                                                <input  type="hidden" name="idActividad" value="<%=datosVO.getActividadCargadaId()%>">
+                                                <input  type="hidden" name="opcion" value="idActividad">
                                                 <button type="submit" class="btn">Enviar Actividad</button>
                                             </form>
                                         </td>

@@ -67,7 +67,7 @@ public class Usuariocontrolador extends HttpServlet {
             usuariologin = request.getParameter("textusuario");
             usuarioPassword = request.getParameter("textclave");
 
-        } else if (opcion == 4 || opcion == 6 || opcion == 7 || opcion == 8) {
+        } else if (opcion == 4 || opcion == 6 || opcion == 7 || opcion == 8 || opcion == 9) {
 
             datosnombres = request.getParameter("textnombres");
             datosapellidos = request.getParameter("textapellidos");
@@ -277,6 +277,56 @@ public class Usuariocontrolador extends HttpServlet {
                 request.getRequestDispatcher("administrativo.jsp").forward(request, response);
                 }
                 break;
+                
+            case 9: // Actualizar clave 
+                
+                datostipoid = request.getParameter("texttipoid");
+               String nombreRol = request.getParameter("rol");
+               String  cla = request.getParameter("clave");
+                
+                DatosPersonalesVO datoViO = new DatosPersonalesVO(datosnombres, datosapellidos,
+                        datostipoid, idDatos, datostelefono, datosemail, datosfechanac);
+
+                DatosPersonalesDAO datoDAOi = new DatosPersonalesDAO(datoViO);
+
+              
+                    
+                    
+                    
+                        
+                        if(datoDAOi.actualizarClave(cla)){
+                    request.setAttribute("mensajeExito", "Se Actualizo el usuario correctamente ");
+                   switch(nombreRol){
+                       case "estudiante":
+                           request.getRequestDispatcher("estudiante.jsp").forward(request, response);
+                          
+                       break;
+                       
+                       case "administrador":
+                            request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                           break;
+                        
+                   }
+                    
+                 
+                    
+                    
+                } else {
+                    request.setAttribute("mensajeError", "No se actualizo  correctamente el usuario vuelva a logearse y intentelo nuevamente");
+                     switch(nombreRol){
+                       case "estudiante":
+                           request.getRequestDispatcher("estudiante.jsp").forward(request, response);
+                          
+                       break;
+                       
+                       case "administrador":
+                            request.getRequestDispatcher("administrativo.jsp").forward(request, response);
+                           break;
+                   }
+                }
+
+                
+                break;
 
         }
     }
@@ -315,6 +365,7 @@ public class Usuariocontrolador extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(Usuariocontrolador.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 

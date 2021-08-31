@@ -20,3 +20,4 @@
         <link rel="stylesheet" href="assets/css/slick.css">
         <link rel="stylesheet" href="assets/css/nice-select.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link href="../Doc/css/style.css" rel="stylesheet" type="text/css"/>

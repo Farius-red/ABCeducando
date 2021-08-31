@@ -123,6 +123,10 @@ public class Docentecontrolador extends HttpServlet {
                  }
                 
                 break;
+                
+            case "reporte":
+                 
+                break;
 
 
         }

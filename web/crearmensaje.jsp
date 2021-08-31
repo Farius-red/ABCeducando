@@ -14,6 +14,9 @@
     <body>
         <%@include file="Componentes/header.jsp" %>
         
+<!-- ? Preloader Start -->
+<%@include file="Componentes/preloadaer.jsp" %>
+    <!-- Preloader Start-->
 
         
   <div class="container  mt-4 d-flex justify-content-around">
@@ -45,7 +48,7 @@ if(request.getAttribute("datosemail")!= null){
                                     }
             %>
 
-            <form method="post" action="Mensajes">
+            <form  class="needs-validation formulario" method="post" action="Mensajes">
                 <div class="card " style=" width: 100%; height: 60%">
                     <div class="card-header bg-dark">
                         <h4 class="text-center text-bold text-white">Crear nuevo
@@ -54,19 +57,23 @@ if(request.getAttribute("datosemail")!= null){
                     </div>
                     <div class="card-body">
                         
-                        <div class="form-group form-row">
+                        <div class="form-group form-row ">
+                            
                             <div class="col-md-6">
                             <label class="text-bold font-italic">Destino</label>
                             <input 
-                                type="text"  placeholder="Escriba correo destino" class="form-control text-success" style="font-size: 15px;" name="receptor"
-                                required value="<%=datosemail%>" />
+                                type="email"  placeholder="Escriba correo destino" class="form-control " style="font-size: 15px;" name="receptor"
+                                title="Email incorrecto revise su formato" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required value="<%=datosemail%>" />
                             </div>
                              <input id="metodo" type="hidden" name="opcion" value="1" >
+                
+                              
+                             
                              <div class="col-md-6">
                                  <label class="text-bold font-italic">Asunto</label>
                             <input 
                                 type="text"   class="form-control" style="font-size: 15px;" placeholder="Escriba un asunto" name="asunto"
-                                required />
+                                placeholder="Escriba Aqui su asunto" pattern="^.{1,25}$" title="El asunto es requerido y no puede pasar los 25 caracteres" required />
                             </div>
                         </div>
 
@@ -74,7 +81,7 @@ if(request.getAttribute("datosemail")!= null){
                             <label class="text-bold font-italic">mensaje</label>
                             <textarea 
                                 class="form-control" placeholder="Escriba su mensaje aqui" name="contenido"
-                                rows="3"  required><%=mensaje %> </textarea>
+                                rows="3"  data-pattern="^.{2,255}$" title="Tu comentario no debe pasar los 255 caracteres" required ><%=mensaje %> </textarea>
                         </div>
                     </div>
                     <div class="card-footer align-content-center">
@@ -132,7 +139,26 @@ if(request.getAttribute("datosemail")!= null){
         </div>
     </div>
 </div>
-        
+        <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
         <%@include file="Componentes/footer.jsp" %>
         <%@include file="Componentes/scripts.jsp" %>
     </body>

@@ -45,6 +45,7 @@
                                                        <li>
                                                            <jsp:include page="Componentes/cerrarSesion.jsp" flush="true"/>
                                                        </li>
+                                             
                                                     </ul>
                                                 <a href="administrativo.jsp"><h1>Administrativo</h1></a>
                                                 <li><a href="#">Matriculas</a>
@@ -77,6 +78,10 @@
                                                         <li><a href="login.jsp">Cerrar Sesion</a></li>
                                                        
                                                     </ul>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a href="../actualizarU.jsp">Actualizar Datos</a>
                                                 </li>
                                             </ul>
                                         </nav>

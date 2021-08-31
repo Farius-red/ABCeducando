@@ -52,7 +52,7 @@
                             
                             <h1></h1><br>
                             <h2><label>Email</label><br></h2>
-                            <input type="text" placeholder="ejemplo@gmail.com" name="email" value="<%=email%>" required><br><br>
+                            <input type="text" placeholder="ejemplo@gmail.com" name="email" value="<%=email%>" title="No es un correo valido por favor escriba un correo valido" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required><br><br>
                             <h2><label>Contraseña</label><br></h2>
                             <input type="password" placeholder="Escriba su contraseña aqui" name="clave" required=""><br><br><br>
 
